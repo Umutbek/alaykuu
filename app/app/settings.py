@@ -236,9 +236,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'alaykuu/static-alaykuu/'
+STATIC_URL = 'alaiku/static-alaiku/'
 
-MEDIA_URL = 'alaykuu/media/'
+MEDIA_URL = 'alaiku/media/'
 
 
 STATIC_ROOT=os.path.join(BASE_DIR,'static')
