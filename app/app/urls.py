@@ -43,7 +43,7 @@ swagger_urlpatterns = [
 ]
 
 urlpatterns = [
-    path('alaykuu/admin/', admin.site.urls),
-    path('alaykuu/user/', include('user.urls')),
-    path('alaykuu/', include(swagger_urlpatterns)),
+    path('alaiku/admin/', admin.site.urls),
+    path('alaiku/user/', include('user.urls')),
+    path('alaiku/', include(swagger_urlpatterns)),
 ]
