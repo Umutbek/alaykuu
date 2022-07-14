@@ -25,9 +25,9 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Alaykuu API",
+      title="Alaiku API",
       default_version='v1',
-      description="Alaykuu New API",
+      description="Alaiku New API",
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="contact@snippets.local"),
       license=openapi.License(name="BSD License"),

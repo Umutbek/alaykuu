@@ -16,6 +16,8 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#useralaikuu
+#2022
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -115,13 +117,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Alaykuu",
+    "site_title": "Alaiku",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Alaykuu",
+    "site_header": "Alaiku",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "Alaykuu",
+    "site_brand": "Alaiku",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": " ",
@@ -133,7 +135,7 @@ JAZZMIN_SETTINGS = {
     "site_icon": None,
 
     # Welcome text on the login screen
-    "welcome_sign": "Добро пожаловать в панель управления Alaykuu",
+    "welcome_sign": "Добро пожаловать в панель управления Alaiku",
 
 
     # The model admin to search from the search bar, search bar omitted if excluded
