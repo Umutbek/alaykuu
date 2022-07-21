@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'user',
+    'core'
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,10 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20,
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    )
 }
 
 ROOT_URLCONF = 'app.urls'
