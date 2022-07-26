@@ -21,6 +21,11 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Продукт")
+        verbose_name_plural = ("Продукты")
+
 
 class Sort(models.Model):
     """Model for Sort"""
@@ -28,6 +33,11 @@ class Sort(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Сорт")
+        verbose_name_plural = ("Сорты")
 
 
 class Accepted(models.Model):
@@ -45,12 +55,22 @@ class Accepted(models.Model):
     fat = models.FloatField(default=0, verbose_name="Жирность")
     acidity = models.FloatField(default=0, verbose_name="Кислотность")
 
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Принятый продукт")
+        verbose_name_plural = ("Принятые продукты")
+
 
 class Payment(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
     farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, null=True, blank=True, related_name="payment_farmer")
     totalCost = models.FloatField(default=0, verbose_name="Общая сумма")
     comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарии")
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Оплата")
+        verbose_name_plural = ("Оплаты")
 
 
 class News(models.Model):
@@ -62,6 +82,12 @@ class News(models.Model):
     def __str__(self):
         return self.headline
 
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Новость")
+        verbose_name_plural = ("Новости")
+
+
 class Job(models.Model):
     jobtitle = models.CharField(max_length=200, null=True, blank=True, verbose_name="Заголовок")
     text = models.TextField(null=True, blank=True, verbose_name="Текст")
@@ -70,10 +96,13 @@ class Job(models.Model):
     responsibilities = models.TextField(null=True, blank=True, verbose_name="Обязанности")
     job_conditions = models.TextField(null=True, blank=True, verbose_name="Условия работы")
 
-
-
     def __str__(self):
         return self.jobtitle
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Вакансия")
+        verbose_name_plural = ("Вакансии")
 
 
 class Messages(models.Model):
@@ -84,12 +113,27 @@ class Messages(models.Model):
     def __str__(self):
         return self.fullname
 
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Сообщения")
+        verbose_name_plural = ("Сообщении")
+
 
 class Video(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
     video = models.FileField(null=True, blank=True, upload_to=imggenerate.all_image_file_path, verbose_name="Видео")
 
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Видео")
+        verbose_name_plural = ("Видео")
+
 
 class Slider(models.Model):
     priority = models.IntegerField(default=1, verbose_name="Приоритет")
     photo = models.ImageField(null=True, blank=True, upload_to=imggenerate.all_image_file_path, verbose_name="Фото")
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Слайдер")
+        verbose_name_plural = ("Слайдеры")

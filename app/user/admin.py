@@ -52,5 +52,7 @@ admin.site.register(models.Distributer, UserAdmin)
 admin.site.register(models.CompanyUser, AlaykuuAdmin)
 admin.site.register(models.City)
 admin.site.register(models.District)
+admin.site.unregister(Group)
+admin.site.unregister(TokenProxy)
 
 
