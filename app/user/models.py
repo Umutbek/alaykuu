@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, \
 from django_fsm import FSMIntegerField
 import requests
 from core import imggenerate
+from user import utils
 
 
 class City(models.Model):
@@ -75,6 +76,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарии")
     active = models.BooleanField(default=False)
     rating = models.FloatField(default=0, verbose_name="Рейтинг")
+    type = FSMIntegerField(choices=utils.UserTypes.choices, null=True, blank=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -87,6 +89,13 @@ class CompanyUser(User):
     """Model for regular account"""
     access_level = models.IntegerField(default=0, verbose_name="Доступ")
 
+    def save(self):
+        if self.type == None:
+            self.type = 1
+        else:
+            pass
+        super(CompanyUser, self).save()
+
     class Meta:
         verbose_name = ("Пользователь")
         verbose_name_plural = ("Пользователи")
@@ -94,11 +103,17 @@ class CompanyUser(User):
 
 class Farmer(User):
     """Model for farmer"""
-
     longitude = models.FloatField(null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     verified = models.BooleanField(default=False)
     payment_left = models.FloatField(null=True, blank=True)
+
+    def save(self):
+        if self.type == None:
+            self.type = 2
+        else:
+            pass
+        super(Farmer, self).save()
 
     class Meta:
         ordering = ('-id',)
@@ -108,6 +123,13 @@ class Farmer(User):
 
 class Distributer(User):
     """Model for distributer"""
+
+    def save(self):
+        if self.type == None:
+            self.type = 3
+        else:
+            pass
+        super(Distributer, self).save()
 
     class Meta:
         ordering = ('-id',)

@@ -16,7 +16,9 @@ router.register(r'job', views.JobsViewSet)
 router.register(r'messages', views.MessagesViewSet)
 router.register(r'video', views.VideoViewSet)
 router.register(r'slider', views.SliderViewSet)
-
+router.register(r'webproducts', views.WebProductsViewSet)
+router.register(r'farmer_sale_category', views.SaleFarmerCategoryViewSet)
+router.register(r'farmer_sale_item', views.SaleFarmerItemViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

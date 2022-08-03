@@ -2,7 +2,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status, permissions, generics
 from django.shortcuts import redirect
-from core import models, serializers
+from core import models, serializers, filters
 from django.views.generic import TemplateView
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
@@ -30,6 +30,11 @@ class AcceptedViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
     queryset = models.Accepted.objects.all()
     serializer_class = serializers.AcceptedSerializer
+
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filter_class = filters.AcceptedProductsFilter
+
+    ordering_fields = ('farmer', 'distributer')
 
     def get_queryset(self):
         return self.queryset.all().order_by('-id')
@@ -87,3 +92,30 @@ class SliderViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return self.queryset.all().order_by('-priority')
+
+
+class WebProductsViewSet(viewsets.ModelViewSet):
+    """Manage slider"""
+    queryset = models.WebProducts.objects.all()
+    serializer_class = serializers.WebProductsSerializer
+
+    def get_queryset(self):
+        return self.queryset.all().order_by('-id')
+
+
+class SaleFarmerCategoryViewSet(viewsets.ModelViewSet):
+    """Manage slider"""
+    queryset = models.SaleFarmerCategory.objects.all()
+    serializer_class = serializers.SaleFarmerCategorySerializer
+
+    def get_queryset(self):
+        return self.queryset.all().order_by('-id')
+
+
+class SaleFarmerItemViewSet(viewsets.ModelViewSet):
+    """Manage slider"""
+    queryset = models.SaleFarmerItem.objects.all()
+    serializer_class = serializers.SaleFarmerItemSerializer
+
+    def get_queryset(self):
+        return self.queryset.all().order_by('-id')

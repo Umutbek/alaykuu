@@ -8,11 +8,21 @@ from django.db.models import Q
 class ItemFilter(FilterSet):
     """Filter for an item"""
     issale = filters.CharFilter('issale')
-    issale = filters.CharFilter('issale')
-
     min_cost= filters.CharFilter(field_name="cost",lookup_expr='gte')
     max_cost= filters.CharFilter(field_name="cost",lookup_expr='lte')
 
     class Meta:
         models = models.Item
         fields = ('min_cost', 'max_cost', 'issale')
+
+
+class AcceptedProductsFilter(FilterSet):
+    """Filter for an item"""
+    farmer = filters.CharFilter('farmer')
+    distributor = filters.CharFilter('distributor')
+    start_date = filters.DateFilter(field_name="date", lookup_expr='gte')
+    end_date = filters.DateFilter(field_name="date", lookup_expr='lte')
+
+    class Meta:
+        models = models.Accepted
+        fields = ('farmer', 'distributor', 'start_date', 'end_date')

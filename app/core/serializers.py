@@ -33,10 +33,10 @@ class AcceptedSerializer(serializers.ModelSerializer):
         model = models.Accepted
         fields = (
             'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost',
-            'status', 'comment', 'sort', 'fat', 'acidity'
+            'status', 'comment', 'sort', 'fat', 'acidity', 'date'
             )
 
-        read_only_fields = ('id',)
+        read_only_fields = ('id', 'date')
 
 
 class PaymentSerializer(serializers.ModelSerializer):
@@ -94,7 +94,7 @@ class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Video
         fields = (
-            'id', 'date', 'video'
+            'id', 'date', 'video', 'thumbnail'
             )
 
         read_only_fields = ('id', 'date')
@@ -107,6 +107,42 @@ class SliderSerializer(serializers.ModelSerializer):
         model = models.Slider
         fields = (
             'id', 'priority', 'photo'
+        )
+
+        read_only_fields = ('id',)
+
+
+class WebProductsSerializer(serializers.ModelSerializer):
+    """Serializer for web products"""
+
+    class Meta:
+        model = models.WebProducts
+        fields = (
+            'id', 'name', 'image', 'category'
+        )
+
+        read_only_fields = ('id',)
+
+
+class SaleFarmerCategorySerializer(serializers.ModelSerializer):
+    """Serializer for fermer's sale category serializer"""
+
+    class Meta:
+        model = models.SaleFarmerCategory
+        fields = (
+            'id', 'nameRu', 'nameKg', 'nameEn'
+        )
+
+        read_only_fields = ('id',)
+
+
+class SaleFarmerItemSerializer(serializers.ModelSerializer):
+    """Serializer for farmer sale products"""
+
+    class Meta:
+        model = models.SaleFarmerItem
+        fields = (
+            'id', 'name', 'image', 'category', 'description'
         )
 
         read_only_fields = ('id',)

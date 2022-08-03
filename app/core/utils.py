@@ -14,3 +14,9 @@ class ItemUnit(models.IntegerChoices):
 class AcceptStatus(models.IntegerChoices):
     paid = 1, 'Заплачено'
     unpaid = 2, 'Незаплачено'
+
+
+class WebProductCategory(models.IntegerChoices):
+    milk = 1, 'Молочная продукция'
+    national_beverages = 2, 'Национальные напитки'
+    beverages = 3, 'Прохладные напитки'

@@ -54,6 +54,7 @@ class Accepted(models.Model):
     sort = models.ForeignKey(Sort, on_delete=models.CASCADE, null=True, blank=True)
     fat = models.FloatField(default=0, verbose_name="Жирность")
     acidity = models.FloatField(default=0, verbose_name="Кислотность")
+    date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
 
     class Meta:
         ordering = ('-id',)
@@ -122,6 +123,7 @@ class Messages(models.Model):
 class Video(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
     video = models.FileField(null=True, blank=True, upload_to=imggenerate.all_image_file_path, verbose_name="Видео")
+    thumbnail = models.ImageField(null=True, blank=True, upload_to=imggenerate.all_image_file_path, verbose_name="Фото")
 
     class Meta:
         ordering = ('-id',)
@@ -137,3 +139,32 @@ class Slider(models.Model):
         ordering = ('-id',)
         verbose_name = ("Слайдер")
         verbose_name_plural = ("Слайдеры")
+
+
+class WebProducts(models.Model):
+    name = models.CharField(max_length=500, verbose_name="Название")
+    image = models.ImageField(null=True, blank=True, upload_to=imggenerate.all_image_file_path, verbose_name="Фото")
+    category = FSMIntegerField(choices=utils.WebProductCategory.choices, verbose_name="Категория")
+
+    def __str__(self):
+        return self.name
+
+
+class SaleFarmerCategory(models.Model):
+    nameRu = models.CharField(max_length=500, verbose_name="Название на русском")
+    nameKg = models.CharField(max_length=500, verbose_name="Название на кыргызском", null=True, blank=True)
+    nameEn = models.CharField(max_length=500, verbose_name="Название на английском", null=True, blank=True)
+
+    def __str__(self):
+        return self.nameRu
+
+
+class SaleFarmerItem(models.Model):
+    name = models.CharField(max_length=500, verbose_name="Название")
+    category = models.ForeignKey(SaleFarmerCategory, on_delete=models.CASCADE, null=True, blank=True)
+    cost = models.FloatField(default=0, verbose_name="Цена")
+    description = models.TextField(null=True, blank=True, verbose_name="Описание")
+    image = models.ImageField(null=True, blank=True, upload_to=imggenerate.all_image_file_path, verbose_name="Фото")
+
+    def __str__(self):
+        return self.name

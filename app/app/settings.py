@@ -132,7 +132,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Алайку",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "../media/uploads/alayku_22.png",
+    "site_logo": "../media/uploads/alaiku.png",
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",
@@ -270,3 +270,5 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+#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

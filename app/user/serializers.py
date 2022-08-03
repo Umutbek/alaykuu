@@ -12,7 +12,7 @@ class AllUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.User
-        fields = ('id', 'fullname', 'login', 'phone')
+        fields = ('id', 'fullname', 'login', 'phone', 'type')
 
 
 class CompanyUserSerializer(serializers.ModelSerializer):
@@ -20,9 +20,11 @@ class CompanyUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.CompanyUser
-        fields = ('id', 'fullname', 'login', 'phone', 'access_level', 'password')
+        fields = ('id', 'fullname', 'login', 'phone', 'access_level', 'type', 'password')
 
         extra_kwargs = {'password':{'write_only':True},}
+        read_only_fields = ('id', 'type')
+
 
     def create(self, validated_data):
         """Create user with encrypted password and return it"""
@@ -39,15 +41,18 @@ class FarmerSerializer(serializers.ModelSerializer):
         model = models.Farmer
         fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back',
                   'passport_text', 'city', 'district', 'address', 'comment', 'active', 'rating', 'longitude', 'latitude',
-                  'verified', 'payment_left'
+                  'verified', 'payment_left', 'type', 'password'
                   )
 
         extra_kwargs = {'password':{'write_only':True},}
+        read_only_fields = ('id', 'type')
+
 
     def create(self, validated_data):
         """Create user with encrypted password and return it"""
         user = models.Farmer.objects.create_user(**validated_data)
         user.set_password(validated_data['password'])
+        user.type = 2
         user.save()
         return user
 
@@ -58,9 +63,11 @@ class DistributerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Distributer
         fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back',
-                  'passport_text', 'city', 'district', 'address', 'comment', 'active', 'rating'
+                  'passport_text', 'city', 'district', 'address', 'comment', 'active', 'rating', 'type', 'password'
                   )
         extra_kwargs = {'password':{'write_only':True},}
+
+        read_only_fields = ('id', 'type')
 
     def create(self, validated_data):
         """Create user with encrypted password and return it"""
