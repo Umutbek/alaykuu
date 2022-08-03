@@ -149,6 +149,11 @@ class WebProducts(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Товар для ВЕБ")
+        verbose_name_plural = ("Товары для ВЕБ")
+
 
 class SaleFarmerCategory(models.Model):
     nameRu = models.CharField(max_length=500, verbose_name="Название на русском")
@@ -157,6 +162,11 @@ class SaleFarmerCategory(models.Model):
 
     def __str__(self):
         return self.nameRu
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Категория продукт для продажи фермерам")
+        verbose_name_plural = ("Категории продукт для продажи фермерам")
 
 
 class SaleFarmerItem(models.Model):
@@ -168,3 +178,8 @@ class SaleFarmerItem(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = ("Продукт для продажи фермерам")
+        verbose_name_plural = ("Продукты для продажи фермерам")

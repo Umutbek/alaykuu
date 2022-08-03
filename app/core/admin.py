@@ -13,4 +13,7 @@ admin.site.register(models.Job)
 admin.site.register(models.Messages)
 admin.site.register(models.Video)
 admin.site.register(models.Slider)
+admin.site.register(models.WebProducts)
+admin.site.register(models.SaleFarmerCategory)
+admin.site.register(models.SaleFarmerItem)
 
