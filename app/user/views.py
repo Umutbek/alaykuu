@@ -15,6 +15,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, action
 from django_filters import DateFilter
 import requests
+from farmer.models import Farmer
+from distributer.models import Distributer
 
 
 class CompanyUserViewSet(viewsets.ModelViewSet):
@@ -28,8 +30,7 @@ class CompanyUserViewSet(viewsets.ModelViewSet):
 
 class FarmerViewSet(viewsets.ModelViewSet):
     """Manage Farmers"""
-    permission_classes = (permissions.AllowAny,)
-    queryset = models.Farmer.objects.all()
+    queryset = Farmer.objects.all()
     serializer_class = serializers.FarmerSerializer
     pagination_class = None
 
@@ -38,7 +39,7 @@ class DistributerViewSet(viewsets.ModelViewSet):
     """Manage Distributers"""
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.AllowAny,)
-    queryset = models.Distributer.objects.all()
+    queryset = Distributer.objects.all()
     serializer_class = serializers.DistributerSerializer
     pagination_class = None
 

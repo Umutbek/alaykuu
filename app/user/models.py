@@ -74,7 +74,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Город", related_name="farmer_district")
     address = models.CharField(max_length=200, null=True, blank=True, verbose_name="Адресс")
     comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарии")
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=False, verbose_name="Актив?")
     rating = models.FloatField(default=0, verbose_name="Рейтинг")
     type = FSMIntegerField(choices=utils.UserTypes.choices, null=True, blank=True)
 
@@ -99,39 +99,3 @@ class CompanyUser(User):
     class Meta:
         verbose_name = ("Пользователь")
         verbose_name_plural = ("Пользователи")
-
-
-class Farmer(User):
-    """Model for farmer"""
-    longitude = models.FloatField(null=True, blank=True)
-    latitude = models.FloatField(null=True, blank=True)
-    verified = models.BooleanField(default=False)
-    payment_left = models.FloatField(null=True, blank=True)
-
-    def save(self):
-        if self.type == None:
-            self.type = 2
-        else:
-            pass
-        super(Farmer, self).save()
-
-    class Meta:
-        ordering = ('-id',)
-        verbose_name = ("Фермер")
-        verbose_name_plural = ("Фермеры")
-
-
-class Distributer(User):
-    """Model for distributer"""
-
-    def save(self):
-        if self.type == None:
-            self.type = 3
-        else:
-            pass
-        super(Distributer, self).save()
-
-    class Meta:
-        ordering = ('-id',)
-        verbose_name = ("Распределитель")
-        verbose_name_plural = ("Распределители")

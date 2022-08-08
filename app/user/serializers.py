@@ -4,7 +4,8 @@ from django_filters import rest_framework as filters
 User = get_user_model()
 from rest_framework.authtoken.models import Token
 from user import models
-
+from farmer.models import Farmer
+from distributer.models import Distributer
 
 
 class AllUserSerializer(serializers.ModelSerializer):
@@ -38,7 +39,7 @@ class FarmerSerializer(serializers.ModelSerializer):
     """Serializer for farmer"""
 
     class Meta:
-        model = models.Farmer
+        model = Farmer
         fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back',
                   'passport_text', 'city', 'district', 'address', 'comment', 'active', 'rating', 'longitude', 'latitude',
                   'verified', 'payment_left', 'type', 'password'
@@ -50,7 +51,7 @@ class FarmerSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """Create user with encrypted password and return it"""
-        user = models.Farmer.objects.create_user(**validated_data)
+        user = Farmer.objects.create_user(**validated_data)
         user.set_password(validated_data['password'])
         user.type = 2
         user.save()
@@ -61,7 +62,7 @@ class DistributerSerializer(serializers.ModelSerializer):
     """Serializer for distributer"""
 
     class Meta:
-        model = models.Distributer
+        model = Distributer
         fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back',
                   'passport_text', 'city', 'district', 'address', 'comment', 'active', 'rating', 'type', 'password'
                   )
@@ -71,7 +72,7 @@ class DistributerSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """Create user with encrypted password and return it"""
-        user = models.Distributer.objects.create_user(**validated_data)
+        user = Distributer.objects.create_user(**validated_data)
         user.set_password(validated_data['password'])
         user.save()
         return user

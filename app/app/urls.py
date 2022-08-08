@@ -46,6 +46,8 @@ urlpatterns = [
     path('alaiku/admin/', admin.site.urls),
     path('alaiku/user/', include('user.urls')),
     path('alaiku/core/', include('core.urls')),
+    path('alaiku/farmer/', include('farmer.urls')),
+
     path('alaiku/', include(swagger_urlpatterns)),
 ]
 

@@ -5,13 +5,14 @@ from rest_framework.authtoken.models import TokenProxy
 
 from django.utils.translation import gettext as _
 
-from user import models
+from distributer import models
+# Register your models here.
 
 
-class AlaykuuAdmin(BaseUserAdmin):
+class DistributorAdmin(BaseUserAdmin):
 
     ordering = ['id']
-    list_display = ('login',)
+    list_display = ('login', 'phone')
     search_fields = ['login']
     list_filter = (
     )
@@ -20,7 +21,7 @@ class AlaykuuAdmin(BaseUserAdmin):
         (None, {'fields': ('login', 'password')}),
         (_('Personal info'), {'fields': ('fullname', 'phone', 'avatar', 'passport_front',
                                          'passport_back', 'passport_text', 'city', 'district',
-                                         'address', 'comment', 'active', 'rating', 'access_level'
+                                         'address', 'comment', 'active', 'rating'
                                         )}),
     )
     add_fieldsets = (
@@ -30,10 +31,4 @@ class AlaykuuAdmin(BaseUserAdmin):
         }),
     )
 
-admin.site.register(models.CompanyUser, AlaykuuAdmin)
-admin.site.register(models.City)
-admin.site.register(models.District)
-admin.site.unregister(Group)
-admin.site.unregister(TokenProxy)
-
-
+admin.site.register(models.Distributer, DistributorAdmin)

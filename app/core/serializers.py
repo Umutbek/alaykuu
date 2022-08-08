@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from core import models
+from website.models import WebProducts
+from farmer.models import SaleFarmerCategory, SaleFarmerItem
+
 
 class ItemSerializer(serializers.ModelSerializer):
     """Serializer for Item"""
@@ -116,7 +119,7 @@ class WebProductsSerializer(serializers.ModelSerializer):
     """Serializer for web products"""
 
     class Meta:
-        model = models.WebProducts
+        model = WebProducts
         fields = (
             'id', 'name', 'image', 'category'
         )
@@ -128,7 +131,7 @@ class SaleFarmerCategorySerializer(serializers.ModelSerializer):
     """Serializer for fermer's sale category serializer"""
 
     class Meta:
-        model = models.SaleFarmerCategory
+        model = SaleFarmerCategory
         fields = (
             'id', 'nameRu', 'nameKg', 'nameEn'
         )
@@ -140,7 +143,7 @@ class SaleFarmerItemSerializer(serializers.ModelSerializer):
     """Serializer for farmer sale products"""
 
     class Meta:
-        model = models.SaleFarmerItem
+        model = SaleFarmerItem
         fields = (
             'id', 'name', 'image', 'category', 'description'
         )

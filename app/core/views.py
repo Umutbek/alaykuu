@@ -13,6 +13,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, action
 import requests
+from website.models import WebProducts
+from farmer.models import SaleFarmerCategory, SaleFarmerItem
 
 
 class ItemViewSet(viewsets.ModelViewSet):
@@ -96,7 +98,7 @@ class SliderViewSet(viewsets.ModelViewSet):
 
 class WebProductsViewSet(viewsets.ModelViewSet):
     """Manage slider"""
-    queryset = models.WebProducts.objects.all()
+    queryset = WebProducts.objects.all()
     serializer_class = serializers.WebProductsSerializer
 
     def get_queryset(self):
@@ -105,7 +107,7 @@ class WebProductsViewSet(viewsets.ModelViewSet):
 
 class SaleFarmerCategoryViewSet(viewsets.ModelViewSet):
     """Manage slider"""
-    queryset = models.SaleFarmerCategory.objects.all()
+    queryset = SaleFarmerCategory.objects.all()
     serializer_class = serializers.SaleFarmerCategorySerializer
 
     def get_queryset(self):
@@ -114,7 +116,7 @@ class SaleFarmerCategoryViewSet(viewsets.ModelViewSet):
 
 class SaleFarmerItemViewSet(viewsets.ModelViewSet):
     """Manage slider"""
-    queryset = models.SaleFarmerItem.objects.all()
+    queryset = SaleFarmerItem.objects.all()
     serializer_class = serializers.SaleFarmerItemSerializer
 
     def get_queryset(self):
