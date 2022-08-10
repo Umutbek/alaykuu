@@ -32,9 +32,9 @@ class SortSerializer(serializers.ModelSerializer):
 
 class AcceptedSerializer(serializers.ModelSerializer):
     """Serializer for accepted product"""
-    farmer = FarmerSerializer(many=True, required=False, allow_null=True)
-    distributor = DistributerSerializer(many=True, required=False, allow_null=True)
-    item = ItemSerializer(many=True, required=False, allow_null=True)
+    farmer = FarmerSerializer()
+    distributor = DistributerSerializer()
+    item = ItemSerializer()
 
     class Meta:
         model = models.Accepted
