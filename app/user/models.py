@@ -20,8 +20,8 @@ class City(models.Model):
 
     class Meta:
         ordering = ('id',)
-        verbose_name = ("Город")
-        verbose_name_plural = ("Города")
+        verbose_name = ("Город/Область")
+        verbose_name_plural = ("Города/Области")
 
 
 class District(models.Model):
@@ -36,8 +36,8 @@ class District(models.Model):
 
     class Meta:
         ordering = ('id',)
-        verbose_name = ("Область")
-        verbose_name_plural = ("Области")
+        verbose_name = ("Район")
+        verbose_name_plural = ("Районы")
 
 
 class UserManager(BaseUserManager):
@@ -63,19 +63,19 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Model for user"""
-    fullname = models.CharField(max_length=200, verbose_name="Название")
+    fullname = models.CharField(max_length=200, verbose_name="ФИО")
     login = models.CharField(max_length=200, unique=True, verbose_name="Логин")
     phone = models.CharField(max_length=200, null=True, blank=True, verbose_name="Телефон номер")
     avatar = models.ImageField(null=True, blank=True, upload_to=imggenerate.all_image_file_path, verbose_name="Фото")
     passport_front = models.ImageField(null=True, blank=True, upload_to=imggenerate.all_image_file_path, verbose_name="Паспорт лицовая сторона")
     passport_back = models.ImageField(null=True, blank=True, upload_to=imggenerate.all_image_file_path, verbose_name="Паспорт оборотная сторона")
     passport_text = models.CharField(max_length=200, null=True, blank=True, verbose_name="Паспорт номер")
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Город", related_name="farmer_city")
-    district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Город", related_name="farmer_district")
-    address = models.CharField(max_length=200, null=True, blank=True, verbose_name="Адресс")
-    comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарии")
-    active = models.BooleanField(default=False, verbose_name="Актив?")
-    rating = models.FloatField(default=0, verbose_name="Рейтинг")
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Город/Область", related_name="farmer_city")
+    district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Район", related_name="farmer_district")
+    address = models.CharField(max_length=200, null=True, blank=True, verbose_name="Адрес")
+    comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Дополнительная информация")
+    active = models.BooleanField(default=False, verbose_name="Статус активации?")
+    rating = models.FloatField(default=5, verbose_name="Рейтинг")
     type = FSMIntegerField(choices=utils.UserTypes.choices, null=True, blank=True)
 
     is_staff = models.BooleanField(default=False)

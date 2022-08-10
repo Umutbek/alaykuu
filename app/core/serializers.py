@@ -2,6 +2,7 @@ from rest_framework import serializers
 from core import models
 from website.models import WebProducts
 from farmer.models import SaleFarmerCategory, SaleFarmerItem
+from user.serializers import FarmerSerializer, DistributerSerializer
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -31,6 +32,9 @@ class SortSerializer(serializers.ModelSerializer):
 
 class AcceptedSerializer(serializers.ModelSerializer):
     """Serializer for accepted product"""
+    farmer = FarmerSerializer(many=True, required=False, allow_null=True)
+    distributor = DistributerSerializer(many=True, required=False, allow_null=True)
+    item = ItemSerializer(many=True, required=False, allow_null=True)
 
     class Meta:
         model = models.Accepted
@@ -145,7 +149,7 @@ class SaleFarmerItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = SaleFarmerItem
         fields = (
-            'id', 'name', 'image', 'category', 'description'
+            'id', 'name', 'image', 'category', 'cost', 'description'
         )
 
         read_only_fields = ('id',)
