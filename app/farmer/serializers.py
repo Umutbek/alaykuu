@@ -1,5 +1,6 @@
 from farmer import models
 from rest_framework import serializers
+from user.serializers import FarmerSerializer, DistributerSerializer
 
 
 class CartItemSerializer(serializers.ModelSerializer):
@@ -10,6 +11,18 @@ class CartItemSerializer(serializers.ModelSerializer):
             'id', 'item', 'quantity'
         )
         read_only_fields = ('id',)
+
+
+class GetCartItemSerializer(serializers.ModelSerializer):
+    """Serializer for getting cart items"""
+    class Meta:
+        model = models.CartItems
+        fields = (
+            'id', 'item', 'quantity'
+        )
+        read_only_fields = ('id',)
+
+        depth = 1
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -34,3 +47,19 @@ class OrderSerializer(serializers.ModelSerializer):
             for i in items:
                 models.CartItems.objects.create(order=order, **i)
         return order
+
+
+class GetOrderSerializer(serializers.ModelSerializer):
+    """Serializer for getting order"""
+    items = GetCartItemSerializer()
+    farmer = FarmerSerializer()
+    distributer = DistributerSerializer()
+
+    class Meta:
+        model = models.FarmerOrders
+        fields = (
+            'id', 'items', 'farmer', 'distributer', 'date', 'comment',
+            'status', 'totalCost'
+        )
+
+        read_only_fields = ('id',)

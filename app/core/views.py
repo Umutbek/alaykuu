@@ -41,6 +41,11 @@ class AcceptedViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return self.queryset.all().order_by('-id')
 
+    def get_serializer_class(self):
+        if self.action == 'list' or self.action == 'retrieve':
+            return serializers.GetAcceptedSerializer
+        return serializers.AcceptedSerializer
+
 
 class PaymentViewSet(viewsets.ModelViewSet):
     """Manage accepted products"""
@@ -118,6 +123,10 @@ class SaleFarmerItemViewSet(viewsets.ModelViewSet):
     """Manage slider"""
     queryset = SaleFarmerItem.objects.all()
     serializer_class = serializers.SaleFarmerItemSerializer
+
+    filter_backends = (DjangoFilterBackend, SearchFilter)
+
+    search_fields = ('name', 'description')
 
     def get_queryset(self):
         return self.queryset.all().order_by('-id')

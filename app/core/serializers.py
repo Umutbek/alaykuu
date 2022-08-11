@@ -30,8 +30,8 @@ class SortSerializer(serializers.ModelSerializer):
         read_only_fields = ('id',)
 
 
-class AcceptedSerializer(serializers.ModelSerializer):
-    """Serializer for accepted product"""
+class GetAcceptedSerializer(serializers.ModelSerializer):
+    """ Get Serializer for accepted product"""
     farmer = FarmerSerializer()
     distributor = DistributerSerializer()
     item = ItemSerializer()
@@ -44,6 +44,32 @@ class AcceptedSerializer(serializers.ModelSerializer):
             )
 
         read_only_fields = ('id', 'date')
+
+
+class AcceptedSerializer(serializers.ModelSerializer):
+    """Serializer for accepted product"""
+
+    class Meta:
+        model = models.Accepted
+        fields = (
+            'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost',
+            'status', 'comment', 'sort', 'fat', 'acidity', 'date'
+            )
+
+        read_only_fields = ('id', 'date')
+
+    def create(self, validated_data):
+        """Create user with encrypted password and return it"""
+
+        user = models.Accepted.objects.create(**validated_data)
+        user.item.amountleft = user.item.amountleft + 1
+        updated_item = models.Item.objects.filter(id=user.item.id).first()
+
+        if updated_item:
+            updated_item.amountleft = updated_item.amountleft + 1
+            updated_item.save()
+
+        return user
 
 
 class PaymentSerializer(serializers.ModelSerializer):
