@@ -51,7 +51,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class GetOrderSerializer(serializers.ModelSerializer):
     """Serializer for getting order"""
-    items = GetCartItemSerializer()
+    items = GetCartItemSerializer(many=True, required=False, allow_null=True)
     farmer = FarmerSerializer()
     distributer = DistributerSerializer()
 
