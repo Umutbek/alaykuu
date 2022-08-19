@@ -21,7 +21,7 @@ class FarmerAdmin(BaseUserAdmin):
         (_('Personal info'), {'fields': ('fullname', 'phone', 'avatar', 'passport_front',
                                          'passport_back', 'passport_text', 'city', 'district',
                                          'address', 'comment', 'active', 'rating', 'longitude', 'latitude',
-                                         'verified', 'payment_left'
+                                         'verified', 'payment_left', 'type'
                                         )}),
     )
     add_fieldsets = (

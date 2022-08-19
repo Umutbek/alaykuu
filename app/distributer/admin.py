@@ -21,7 +21,7 @@ class DistributorAdmin(BaseUserAdmin):
         (None, {'fields': ('login', 'password')}),
         (_('Personal info'), {'fields': ('fullname', 'phone', 'avatar', 'passport_front',
                                          'passport_back', 'passport_text', 'city', 'district',
-                                         'address', 'comment', 'active', 'rating'
+                                         'address', 'comment', 'active', 'rating', 'type'
                                         )}),
     )
     add_fieldsets = (

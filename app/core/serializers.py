@@ -69,6 +69,11 @@ class AcceptedSerializer(serializers.ModelSerializer):
             updated_item.amountleft = updated_item.amountleft + 1
             updated_item.save()
 
+        if user.status == 2:
+            farmer = models.Farmer.objects.filter(id=user.farmer.id).first()
+            farmer.payment_left = farmer.payment_left + user.totalCost
+            farmer.save()
+
         return user
 
 
@@ -82,6 +87,19 @@ class PaymentSerializer(serializers.ModelSerializer):
             )
 
         read_only_fields = ('id', 'date')
+
+    def create(self, validated_data):
+        """Create user with encrypted password and return it"""
+
+        payment = models.Payment.objects.create(**validated_data)
+
+        farmer = models.Farmer.objects.filter(id=payment.farmer.id).first()
+        farmer.payment_left = farmer.payment_left  - payment.totalCost
+        if farmer.payment_left < 0:
+            farmer.payment_left = 0
+        farmer.save()
+
+        return payment
 
 
 class NewsSerializer(serializers.ModelSerializer):

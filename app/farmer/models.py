@@ -14,12 +14,12 @@ class Farmer(User):
     verified = models.BooleanField(default=False, verbose_name="Проверено?")
     payment_left = models.FloatField(null=True, blank=True, verbose_name="Оставшаяся сумма")
 
-    def save(self):
-        if self.type == None:
-            self.type = 2
-        else:
-            pass
-        super(Farmer, self).save()
+    # def save(self):
+    #     if self.type == None:
+    #         self.type = 2
+    #     else:
+    #         pass
+    #     super(Farmer, self).save()
 
     class Meta:
         ordering = ('-id',)
