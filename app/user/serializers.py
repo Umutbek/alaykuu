@@ -24,7 +24,7 @@ class CompanyUserSerializer(serializers.ModelSerializer):
         fields = ('id', 'fullname', 'login', 'phone', 'access_level', 'type', 'password')
 
         extra_kwargs = {'password':{'write_only':True},}
-        read_only_fields = ('id', 'type')
+        read_only_fields = ('id',)
 
 
     def create(self, validated_data):
@@ -46,7 +46,7 @@ class FarmerSerializer(serializers.ModelSerializer):
                   )
 
         extra_kwargs = {'password':{'write_only':True},}
-        read_only_fields = ('id', 'type')
+        read_only_fields = ('id',)
 
 
     def create(self, validated_data):
@@ -63,12 +63,12 @@ class DistributerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Distributer
-        fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back',
+        fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back', 'type',
                   'passport_text', 'city', 'district', 'address', 'comment', 'active', 'rating', 'type', 'password'
                   )
         extra_kwargs = {'password':{'write_only':True},}
 
-        read_only_fields = ('id', 'type')
+        read_only_fields = ('id',)
 
     def create(self, validated_data):
         """Create user with encrypted password and return it"""

@@ -6,12 +6,12 @@ from core import imggenerate
 class Distributer(User):
     """Model for distributer"""
 
-    def save(self):
-        if self.type == None:
-            self.type = 3
-        else:
-            pass
-        super(Distributer, self).save()
+    # def save(self):
+    #     if self.type == None:
+    #         self.type = 3
+    #     else:
+    #         pass
+    #     super(Distributer, self).save()
 
     class Meta:
         ordering = ('-id',)
