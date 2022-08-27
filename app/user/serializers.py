@@ -13,7 +13,7 @@ class AllUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.User
-        fields = ('id', 'fullname', 'login', 'phone', 'type')
+        fields = ('id', 'fullname', 'login', 'phone', 'type', 'active')
 
 
 class CompanyUserSerializer(serializers.ModelSerializer):
@@ -115,5 +115,7 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError({'detail': msg}, code='authorization')
 
         data['user']= user
+
+        print(data['user'].type)
 
         return data

@@ -71,8 +71,9 @@ class AcceptedSerializer(serializers.ModelSerializer):
 
         if user.status == 2:
             farmer = models.Farmer.objects.filter(id=user.farmer.id).first()
-            farmer.payment_left = farmer.payment_left + user.totalCost
-            farmer.save()
+            if farmer.payment_left:
+                farmer.payment_left = farmer.payment_left + user.totalCost
+                farmer.save()
 
         return user
 
