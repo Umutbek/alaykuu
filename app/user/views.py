@@ -63,8 +63,6 @@ class LoginAPI(APIView):
         serializer = serializers.LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
-        user.active = True
-        user.save()
         info = models.User.objects.filter(login=user)
         userdata = serializers.AllUserSerializer(info, many=True)
         token, created = Token.objects.get_or_create(user=user)
