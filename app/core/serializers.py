@@ -61,21 +61,19 @@ class AcceptedSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """Create user with encrypted password and return it"""
 
-        user = models.Accepted.objects.create(**validated_data)
-        user.item.amountleft = user.item.amountleft + 1
-        updated_item = models.Item.objects.filter(id=user.item.id).first()
+        accepted_item = models.Accepted.objects.create(**validated_data)
+        item = models.Item.objects.filter(id=accepted_item.item.id).first()
 
-        if updated_item:
-            updated_item.amountleft = updated_item.amountleft + 1
-            updated_item.save()
+        if item:
+            item.amountleft = item.amountleft + accepted_item.amount
+            item.save()
 
-        if user.status == 2:
-            farmer = models.Farmer.objects.filter(id=user.farmer.id).first()
-            if farmer.payment_left:
-                farmer.payment_left = farmer.payment_left + user.totalCost
-                farmer.save()
+        if accepted_item.status == 2:
+            farmer = models.Farmer.objects.filter(id=accepted_item.farmer.id).first()
+            farmer.payment_left = farmer.payment_left + accepted_item.totalCost
+            farmer.save()
 
-        return user
+        return accepted_item
 
 
 class PaymentSerializer(serializers.ModelSerializer):
