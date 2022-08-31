@@ -76,6 +76,31 @@ class AcceptedSerializer(serializers.ModelSerializer):
         return accepted_item
 
 
+    def update(self, instance, validated_data):
+
+        instance.status = validated_data.get('status', instance.status)
+        instance.farmer = validated_data.get('farmer', instance.farmer)
+        instance.totalCost = validated_data.get('totalCost', instance.totalCost)
+        instance.amount = validated_data.get('amount', instance.amount)
+
+        instance.discount = validated_data.get('discount', instance.discount)
+        instance.unit = validated_data.get('unit', instance.unit)
+        instance.comment = validated_data.get('comment', instance.comment)
+        instance.sort = validated_data.get('sort', instance.sort)
+        instance.fat = validated_data.get('fat', instance.fat)
+        instance.acidity = validated_data.get('acidity', instance.acidity)
+
+        instance.save()
+
+        if instance.status == 1:
+            farmer = models.Farmer.objects.filter(id=instance.farmer.id).first()
+            print("Farmer", farmer)
+            farmer.payment_left = farmer.payment_left - instance.totalCost
+            farmer.save()
+
+        return instance
+
+
 class PaymentSerializer(serializers.ModelSerializer):
     """Serializer for Payment"""
 
