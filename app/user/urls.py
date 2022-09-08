@@ -11,6 +11,9 @@ router = SimpleRouter()
 router.register(r'companyuser', views.CompanyUserViewSet)
 router.register(r'farmer', views.FarmerViewSet)
 router.register(r'distributer', views.DistributerViewSet)
+router.register(r'city', views.CityViewSet)
+router.register(r'district', views.DistrictViewSet)
+
 
 urlpatterns = [
     path('', include(router.urls)),

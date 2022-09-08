@@ -119,3 +119,19 @@ class LoginSerializer(serializers.Serializer):
         print(data['user'].type)
 
         return data
+
+
+class CitySerializer(serializers.ModelSerializer):
+    """Serializer for city"""
+
+    class Meta:
+        model = models.City
+        fields = ('id', 'nameEn', 'nameRus', 'nameKg')
+
+
+class DistrictSerializer(serializers.ModelSerializer):
+    """Serializer for district"""
+
+    class Meta:
+        model = models.District
+        fields = ('id', 'nameEn', 'nameRus', 'nameKg', 'city')

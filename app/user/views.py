@@ -67,3 +67,21 @@ class LoginAPI(APIView):
         userdata = serializers.AllUserSerializer(info, many=True)
         token, created = Token.objects.get_or_create(user=user)
         return Response({"token": token.key, 'data': userdata.data}, status=200)
+
+
+class CityViewSet(viewsets.ModelViewSet):
+    """Manage city"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.AllowAny,)
+    queryset = models.City.objects.all()
+    serializer_class = serializers.CitySerializer
+    pagination_class = None
+
+
+class DistrictViewSet(viewsets.ModelViewSet):
+    """Manage user district"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.AllowAny,)
+    queryset = models.District.objects.all()
+    serializer_class = serializers.DistrictSerializer
+    pagination_class = None
