@@ -129,8 +129,6 @@ class CitySerializer(serializers.ModelSerializer):
         fields = ('id', 'nameEn', 'nameRus', 'nameKg')
 
 
-http://176.126.164.39/
-
 class DistrictSerializer(serializers.ModelSerializer):
     """Serializer for district"""
 
