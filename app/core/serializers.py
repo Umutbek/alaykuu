@@ -40,7 +40,7 @@ class GetAcceptedSerializer(serializers.ModelSerializer):
         model = models.Accepted
         fields = (
             'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost',
-            'status', 'comment', 'sort', 'fat', 'acidity', 'date'
+            'status', 'comment', 'sort', 'fat', 'acidity', 'date', 'payment_method'
             )
 
         read_only_fields = ('id', 'date')
@@ -53,7 +53,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
         model = models.Accepted
         fields = (
             'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost',
-            'status', 'comment', 'sort', 'fat', 'acidity', 'date'
+            'status', 'comment', 'sort', 'fat', 'acidity', 'date', 'payment_method'
             )
 
         read_only_fields = ('id', 'date')
@@ -79,7 +79,10 @@ class AcceptedSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
 
         instance.status = validated_data.get('status', instance.status)
+        instance.item = validated_data.get('item', instance.item)
         instance.farmer = validated_data.get('farmer', instance.farmer)
+        instance.distributor = validated_data.get('distributor', instance.distributor)
+
         instance.totalCost = validated_data.get('totalCost', instance.totalCost)
         instance.amount = validated_data.get('amount', instance.amount)
 
@@ -89,6 +92,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
         instance.sort = validated_data.get('sort', instance.sort)
         instance.fat = validated_data.get('fat', instance.fat)
         instance.acidity = validated_data.get('acidity', instance.acidity)
+        instance.payment_method = validated_data.get('payment_method', instance.payment_method)
 
         instance.save()
 
@@ -217,7 +221,7 @@ class SaleFarmerItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = SaleFarmerItem
         fields = (
-            'id', 'name', 'image', 'category', 'cost', 'description'
+            'id', 'name', 'image', 'category', 'cost', 'description', 'district'
         )
 
         read_only_fields = ('id',)

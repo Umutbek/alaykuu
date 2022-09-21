@@ -56,6 +56,7 @@ class Accepted(models.Model):
     fat = models.FloatField(default=0, verbose_name="Жирность")
     acidity = models.FloatField(default=0, verbose_name="Кислотность")
     date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
+    payment_method = models.CharField(max_length=200, null=True, blank=True, verbose_name="Метод оплаты")
 
     class Meta:
         ordering = ('-id',)

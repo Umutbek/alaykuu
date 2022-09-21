@@ -1,9 +1,10 @@
 from django.db import models
-from user.models import User
+from user.models import User, District
 from core import imggenerate
 from distributer.models import Distributer
 from django_fsm import FSMIntegerField
 from farmer import utils
+
 # Create your models here.
 
 
@@ -47,6 +48,7 @@ class SaleFarmerItem(models.Model):
     cost = models.FloatField(default=0, verbose_name="Цена")
     description = models.TextField(null=True, blank=True, verbose_name="Описание")
     image = models.ImageField(null=True, blank=True, upload_to=imggenerate.all_image_file_path, verbose_name="Фото")
+    district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Район", related_name="farmer_item_district")
 
     def __str__(self):
         return self.name
