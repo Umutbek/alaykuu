@@ -89,12 +89,12 @@ class CompanyUser(User):
     """Model for regular account"""
     access_level = models.IntegerField(default=0, verbose_name="Доступ")
 
-    def save(self):
-        if self.type == None:
-            self.type = 1
-        else:
-            pass
-        super(CompanyUser, self).save()
+    # def save(self):
+    #     if self.type == None:
+    #         self.type = 1
+    #     else:
+    #         pass
+    #     super(CompanyUser, self).save()
 
     class Meta:
         verbose_name = ("Пользователь")
