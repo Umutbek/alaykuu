@@ -17,6 +17,7 @@ from django_filters import DateFilter
 import requests
 from farmer.models import Farmer
 from distributer.models import Distributer
+from  laborant.models import LaborantUser
 
 
 class CompanyUserViewSet(viewsets.ModelViewSet):
@@ -41,6 +42,15 @@ class DistributerViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
     queryset = Distributer.objects.all()
     serializer_class = serializers.DistributerSerializer
+    pagination_class = None
+
+
+class LaborantViewSet(viewsets.ModelViewSet):
+    """Manage Laborant"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.AllowAny,)
+    queryset = LaborantUser.objects.all()
+    serializer_class = serializers.LaborantSerializer
     pagination_class = None
 
 

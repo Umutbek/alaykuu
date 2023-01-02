@@ -6,6 +6,7 @@ from rest_framework.authtoken.models import Token
 from user import models
 from farmer.models import Farmer
 from distributer.models import Distributer
+from  laborant.models import LaborantUser
 
 
 class AllUserSerializer(serializers.ModelSerializer):
@@ -41,7 +42,7 @@ class FarmerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Farmer
         fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back',
-                  'passport_text', 'city', 'district', 'address', 'comment', 'active', 'rating', 'longitude', 'latitude',
+                  'passport_text', 'city', 'district', 'address', 'comment', 'farmer_type', 'active', 'rating', 'longitude', 'latitude',
                   'verified', 'payment_left', 'type', 'password'
                   )
 
@@ -78,6 +79,24 @@ class DistributerSerializer(serializers.ModelSerializer):
         return user
 
 
+class LaborantSerializer(serializers.ModelSerializer):
+    """Serializer for "laborant"""
+
+    class Meta:
+        model = LaborantUser
+        fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back', 'type',
+                  'passport_text', 'city', 'district', 'address', 'comment', 'active', 'rating', 'type', 'password'
+                  )
+        extra_kwargs = {'password':{'write_only':True},}
+
+        read_only_fields = ('id',)
+
+    def create(self, validated_data):
+        """Create user with encrypted password and return it"""
+        user = LaborantUser.objects.create_user(**validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
 
 class LoginSerializer(serializers.Serializer):
     """Serializer for login"""

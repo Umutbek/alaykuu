@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'website',
     'farmer',
     'distributer',
-    'corsheaders'
+    'corsheaders',
+    'laborant'
 ]
 
 MIDDLEWARE = [

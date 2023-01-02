@@ -14,6 +14,7 @@ class Farmer(User):
     latitude = models.FloatField(null=True, blank=True)
     verified = models.BooleanField(default=False, verbose_name="Проверено?")
     payment_left = models.FloatField(null=True, blank=True, verbose_name="Оставшаяся сумма")
+    farmer_type = FSMIntegerField(choices=utils.FarmerTypes.choices, null=True, blank=True, verbose_name="Категории фермеров")
 
     # def save(self):
     #     if self.type == None:

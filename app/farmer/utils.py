@@ -7,3 +7,9 @@ class OrderStatuses(models.IntegerChoices):
     Delivered = 4, 'Доставлено'
     Rejected = 5, 'Отказано'
     ClientReject = 6, 'Отказано'
+
+
+class FarmerTypes(models.IntegerChoices):
+    Small = 1, 'Мелкий'
+    Medium = 2, 'Средний'
+    Large = 3, 'Крупный'
