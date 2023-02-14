@@ -2,6 +2,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status, permissions, generics, authentication
 from django.shortcuts import redirect
+
+from farmer import filters
 from user import models, serializers
 from django.views.generic import TemplateView
 from rest_framework.views import APIView
@@ -34,6 +36,10 @@ class FarmerViewSet(viewsets.ModelViewSet):
     queryset = Farmer.objects.all()
     serializer_class = serializers.FarmerSerializer
     pagination_class = None
+    search_fields = ('fullname',)
+
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filter_class = filters.FarmerFilters
 
 
 class DistributerViewSet(viewsets.ModelViewSet):

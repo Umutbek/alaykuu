@@ -247,7 +247,9 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:5000',
     'http://176.126.164.39',
     'http://kinvest.org.kg',
-    'http://alaiku.com'
+    'https://kinvest.org.kg',
+    'http://alaiku.com',
+    'https://alaiku.com'
 )
 
 # Static files (CSS, JavaScript, Images)

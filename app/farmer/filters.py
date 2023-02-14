@@ -16,3 +16,11 @@ class OrderFilter(FilterSet):
     class Meta:
         models = models.FarmerOrders
         fields = ('farmer', 'distributer', 'status', 'start_date', 'end_date')
+
+
+class FarmerFilters(FilterSet):
+    farmer_type = filters.CharFilter('farmer_type')
+
+    class Meta:
+        models = models.Farmer
+        fields = ('farmer_type',)
