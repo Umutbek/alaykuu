@@ -52,7 +52,7 @@ class AcceptedViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         saved_data = serializer.save()
 
-        products = serializer.data('products')
+        products = request.data('products')
         for i in products:
             i.status = 1
             i.save()
