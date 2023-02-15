@@ -121,8 +121,9 @@ class PaymentSerializer(serializers.ModelSerializer):
 
         payment = models.Payment.objects.create(**validated_data)
         for product in payment.products:
-            product.status = 1
-            product.save()
+            prod = models.Payment.objects.filter(id=product.id).first()
+            prod.status = 1
+            prod.save()
 
         farmer = models.Farmer.objects.filter(id=payment.farmer.id).first()
         farmer.payment_left = farmer.payment_left - payment.totalCost
