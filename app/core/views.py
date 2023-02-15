@@ -35,6 +35,7 @@ class AcceptedViewSet(viewsets.ModelViewSet):
 
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_class = filters.AcceptedProductsFilter
+    search_fields = ('item',)
 
     ordering_fields = ('farmer', 'distributer')
 
