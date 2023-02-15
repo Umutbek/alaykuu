@@ -66,9 +66,12 @@ class Accepted(models.Model):
 
 class Payment(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
-    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, null=True, blank=True, related_name="payment_farmer", verbose_name="Фермер")
+    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, null=True, blank=True, related_name="payment_farmer",
+                               verbose_name="Фермер")
     totalCost = models.FloatField(default=0, verbose_name="Общая сумма")
     comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарий")
+    products = models.ManyToManyField(to=Accepted, null=True,
+                                      blank=True, verbose_name='Продукты')
 
     class Meta:
         ordering = ('-id',)

@@ -111,7 +111,7 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Payment
         fields = (
-            'id', 'date', 'farmer', 'totalCost', 'comment'
+            'id', 'date', 'farmer', 'totalCost', 'comment', 'products'
             )
 
         read_only_fields = ('id', 'date')
@@ -120,9 +120,12 @@ class PaymentSerializer(serializers.ModelSerializer):
         """Create user with encrypted password and return it"""
 
         payment = models.Payment.objects.create(**validated_data)
+        for product in payment.products:
+            product.status = 1
+            product.save()
 
         farmer = models.Farmer.objects.filter(id=payment.farmer.id).first()
-        farmer.payment_left = farmer.payment_left  - payment.totalCost
+        farmer.payment_left = farmer.payment_left - payment.totalCost
         if farmer.payment_left < 0:
             farmer.payment_left = 0
         farmer.save()
