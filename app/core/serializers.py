@@ -120,10 +120,12 @@ class PaymentSerializer(serializers.ModelSerializer):
         """Create user with encrypted password and return it"""
 
         payment = models.Payment.objects.create(**validated_data)
-        for product in payment.products:
-            prod = models.Payment.objects.filter(id=product.id).first()
-            prod.status = 1
-            prod.save()
+
+
+        # for product in payment.products:
+        #     prod = models.Payment.objects.filter(id=product.id).first()
+        #     prod.status = 1
+        #     prod.save()
 
         farmer = models.Farmer.objects.filter(id=payment.farmer.id).first()
         farmer.payment_left = farmer.payment_left - payment.totalCost
