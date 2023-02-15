@@ -47,6 +47,18 @@ class AcceptedViewSet(viewsets.ModelViewSet):
             return serializers.GetAcceptedSerializer
         return serializers.AcceptedSerializer
 
+    def create(self, request, *args, **kwargs):
+        serializer = serializers.AcceptedSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        saved_data = serializer.save()
+
+        products = serializer.data('products')
+        for i in products:
+            i.status = 1
+            i.save()
+
+        return Response(serializer.data)
+
 
 class PaymentViewSet(viewsets.ModelViewSet):
     """Manage accepted products"""
