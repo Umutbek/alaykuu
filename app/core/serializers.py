@@ -107,6 +107,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
 
 class PaymentSerializer(serializers.ModelSerializer):
     """Serializer for Payment"""
+    products = AcceptedSerializer()
 
     class Meta:
         model = models.Payment
