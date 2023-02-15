@@ -23,7 +23,8 @@ class AcceptedProductsFilter(FilterSet):
     status = filters.CharFilter('status')
     start_date = filters.DateFilter(field_name="date", lookup_expr='gte')
     end_date = filters.DateFilter(field_name="date", lookup_expr='lte')
+    sort = filters.CharFilter('sort')
 
     class Meta:
         models = models.Accepted
-        fields = ('farmer', 'distributor', 'status', 'start_date', 'end_date')
+        fields = ('farmer', 'distributor', 'sort', 'status', 'start_date', 'end_date')
