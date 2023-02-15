@@ -107,7 +107,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
 
 class PaymentSerializer(serializers.ModelSerializer):
     """Serializer for Payment"""
-    products = AcceptedSerializer(many=True)
+    products = serializers.PrimaryKeyRelatedField(queryset=models.Accepted.objects.all(), many=True)
 
     class Meta:
         model = models.Payment
