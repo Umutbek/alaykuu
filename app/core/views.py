@@ -52,11 +52,11 @@ class AcceptedViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         saved_data = serializer.save()
 
-        products = models.Accepted.objects.get(id=request.data('products'))
-        for i in products:
-            i.status = 1
+        for j in request.data['products']:
 
-        products.save()
+            products = models.Accepted.objects.get(id=j)
+            products.status = 1
+            products.save()
 
         return Response(serializer.data)
 
