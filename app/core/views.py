@@ -55,7 +55,8 @@ class AcceptedViewSet(viewsets.ModelViewSet):
         products = models.Accepted.objects.get(id=request.data('products'))
         for i in products:
             i.status = 1
-            i.save()
+
+        products.save()
 
         return Response(serializer.data)
 
