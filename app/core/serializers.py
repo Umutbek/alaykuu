@@ -105,6 +105,19 @@ class AcceptedSerializer(serializers.ModelSerializer):
         return instance
 
 
+class PaymentSerializerGet(serializers.ModelSerializer):
+    """Serializer for Payment"""
+    products = AcceptedSerializer(many=True)
+
+    class Meta:
+        model = models.Payment
+        fields = (
+            'id', 'date', 'farmer', 'totalCost', 'comment', 'products'
+            )
+
+        read_only_fields = ('id', 'date')
+
+
 class PaymentSerializer(serializers.ModelSerializer):
     """Serializer for Payment"""
 

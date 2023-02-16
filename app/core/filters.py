@@ -28,3 +28,12 @@ class AcceptedProductsFilter(FilterSet):
     class Meta:
         models = models.Accepted
         fields = ('farmer', 'distributor', 'sort', 'status', 'start_date', 'end_date')
+
+
+class PaymentFilter(FilterSet):
+    start_date = filters.DateFilter(field_name='date', lookup_expr='gte')
+    end_date = filters.DateFilter(field_name='date', lookup_expr='lte')
+
+    class Meta:
+        models = models.Payment
+        fields = ('start_date', 'end_date')

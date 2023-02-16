@@ -60,8 +60,16 @@ class PaymentViewSet(viewsets.ModelViewSet):
     queryset = models.Payment.objects.all()
     serializer_class = serializers.PaymentSerializer
 
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filter_class = filters.PaymentFilter
+
     def get_queryset(self):
         return self.queryset.all().order_by('-id')
+
+    def get_serializer_class(self):
+        if self.action == 'list' or self.action == 'retrieve':
+            return serializers.PaymentSerializerGet
+        return serializers.PaymentSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = serializers.PaymentSerializer(data=request.data)
