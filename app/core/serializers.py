@@ -108,6 +108,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
 class PaymentSerializerGet(serializers.ModelSerializer):
     """Serializer for Payment"""
     products = AcceptedSerializer(many=True)
+    farmer = FarmerSerializer()
 
     class Meta:
         model = models.Payment
