@@ -107,7 +107,6 @@ class AcceptedSerializer(serializers.ModelSerializer):
 
 class PaymentSerializer(serializers.ModelSerializer):
     """Serializer for Payment"""
-    products = AcceptedSerializer(read_only=True, many=True)
 
     class Meta:
         model = models.Payment
@@ -117,18 +116,18 @@ class PaymentSerializer(serializers.ModelSerializer):
 
         read_only_fields = ('id', 'date')
 
-    def create(self, validated_data):
-        """Create user with encrypted password and return it"""
-
-        payment = models.Payment.objects.create(**validated_data)
-
-        farmer = models.Farmer.objects.filter(id=payment.farmer.id).first()
-        farmer.payment_left = farmer.payment_left - payment.totalCost
-        if farmer.payment_left < 0:
-            farmer.payment_left = 0
-        farmer.save()
-
-        return payment
+    # def create(self, validated_data):
+    #     """Create user with encrypted password and return it"""
+    #
+    #     payment = models.Payment.objects.create(**validated_data)
+    #
+    #     farmer = models.Farmer.objects.filter(id=payment.farmer.id).first()
+    #     farmer.payment_left = farmer.payment_left - payment.totalCost
+    #     if farmer.payment_left < 0:
+    #         farmer.payment_left = 0
+    #     farmer.save()
+    #
+    #     return payment
 
 
 class NewsSerializer(serializers.ModelSerializer):

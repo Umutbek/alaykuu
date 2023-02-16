@@ -63,6 +63,23 @@ class PaymentViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return self.queryset.all().order_by('-id')
 
+    def create(self, request, *args, **kwargs):
+        serializer = serializers.PaymentSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        saved_data = serializer.save()
+        payment = models.Payment.objects.get(pk=serializer.data['id'])
+        farmer = models.Farmer.objects.filter(id=payment.farmer.id).first()
+        farmer.payment_left = farmer.payment_left - payment.totalCost
+        if farmer.payment_left < 0:
+            farmer.payment_left = 0
+        farmer.save()
+        products = request.data['products']
+        for i in products:
+            prods = models.Accepted.objects.get(pk=i)
+            prods.status = 1
+            prods.save()
+        return Response(serializer.data)
+
 
 class NewsViewSet(viewsets.ModelViewSet):
     """Manage news"""
