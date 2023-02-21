@@ -12,7 +12,7 @@ from user import utils
 class City(models.Model):
     """Model for Cities"""
     nameEn = models.CharField(max_length=200, null=True, verbose_name="Название на английском")
-    nameRus = models.CharField(max_length=200, null=True, verbose_name="Название на русском")
+    nameRus = models.CharField(max_length=200, verbose_name="Название на русском")
     nameKg = models.CharField(max_length=200, null=True, verbose_name="Название на кыргызком")
 
     def __str__(self):
