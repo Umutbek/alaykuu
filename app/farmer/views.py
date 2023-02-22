@@ -45,7 +45,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         request.data['items'] = newItems
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
+        self.partial_update(serializer)
 
         if getattr(instance, '_prefetched_objects_cache', None):
             # If 'prefetch_related' has been applied to a queryset, we need to
