@@ -42,9 +42,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             item = models.CartItems.objects.create(item=models.SaleFarmerItem.objects.get(pk=i['item']),
                                                    quantity=i['quantity'])
             newItems.append(item)
-        req = request.data
-        req.items = newItems
-        serializer = self.get_serializer(instance, data=req, partial=partial)
+        request.data['items'] = newItems
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 
