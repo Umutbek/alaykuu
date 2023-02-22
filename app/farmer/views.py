@@ -32,3 +32,20 @@ class OrderViewSet(viewsets.ModelViewSet):
         if self.action == 'list' or self.action == 'retrieve':
             return serializers.GetOrderSerializer
         return serializers.OrderSerializer
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = models.FarmerOrders.objects.get(pk=request.data['id'])
+        item = models.CartItems.objects.get_or_create(id=request.data['items_id'], item_id=request.data['items_id'],
+                                                      quantity=request.data['items_quantity'])
+        instance.items = item
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
