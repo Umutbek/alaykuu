@@ -25,7 +25,7 @@ class GetCartItemSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class OrderSerializer(serializers.ModelSerializer):
+class   OrderSerializer(serializers.ModelSerializer):
     """Serializer for client order"""
     items = CartItemSerializer(many=True, required=False, allow_null=True)
 
