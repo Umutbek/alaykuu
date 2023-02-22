@@ -55,7 +55,10 @@ class OrderSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get('status', instance.status)
         instance.totalCost = validated_data.get('totalCost', instance.totalCost)
         # self.create(validated_data.get('items'))
-        # instance.items = validated_data.get('items', instance.items)
+        print(instance.items)
+        instance.items = validated_data.get('items', instance.items)
+        print(instance.items)
+
         instance.save()
 
         return instance
