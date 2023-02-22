@@ -60,7 +60,7 @@ class OrderSerializer(serializers.ModelSerializer):
                 models.CartItems.objects.create(**i)
         # self.create(validated_data.get('items'))
         # print(instance.items)
-        instance.items = validated_data.get('items', instance.items)
+        instance.items = items
         print(instance.items)
 
         instance.save()
