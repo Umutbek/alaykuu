@@ -36,8 +36,8 @@ class OrderViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = models.FarmerOrders.objects.get(pk=request.data['id'])
-        item = models.CartItems.objects.get_or_create(id=request.data['items_id'], item_id=request.data['items_id'],
-                                                      quantity=request.data['items_quantity'])
+        item = models.CartItems.objects.create(item=request.data['items_item'],
+                                               quantity=request.data['items_quantity'])
         instance.items = item
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
