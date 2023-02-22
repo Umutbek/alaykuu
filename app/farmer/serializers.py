@@ -48,14 +48,13 @@ class OrderSerializer(serializers.ModelSerializer):
                 models.CartItems.objects.create(order=order, **i)
         return order
 
-
     def update(self, instance, validated_data):
-
         instance.farmer = validated_data.get('farmer', instance.farmer)
         instance.distributer = validated_data.get('distributer', instance.distributer)
         instance.comment = validated_data.get('comment', instance.comment)
         instance.status = validated_data.get('status', instance.status)
         instance.totalCost = validated_data.get('totalCost', instance.totalCost)
+        instance.items = validated_data.get('items', instance.items)
         instance.save()
 
         return instance
