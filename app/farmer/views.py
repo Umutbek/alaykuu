@@ -38,7 +38,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         req_items = request.data['items']
         for i in req_items:
-            item = models.CartItems.objects.create(item=i['item'],
+            item = models.CartItems.objects.create(item_id=i['item'],
                                                    quantity=i['quantity'])
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
