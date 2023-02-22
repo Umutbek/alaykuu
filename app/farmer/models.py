@@ -84,7 +84,7 @@ class CartItems(models.Model):
     quantity = models.IntegerField(default=0, verbose_name="Количество")
 
     def __str__(self):
-        return self.item.id
+        return str(self.item.id)
 
     class Meta:
         verbose_name = ("Товар")
