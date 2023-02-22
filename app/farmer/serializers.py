@@ -57,14 +57,14 @@ class OrderSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get('status', instance.status)
         instance.totalCost = validated_data.get('totalCost', instance.totalCost)
         items = validated_data.pop('items', None)
-        new_list = []
-        if items:
-            for i in items:
-                saved = models.CartItems.objects.create(**i)
-                new_list.append({"id": saved.id, "item": saved.item.id, "quantity": saved.quantity})
-        # self.create(validated_data.get('items'))
-        print(new_list)
-        instance.items = CartItemSerializer(many=True, data=new_list)
+        # new_list = []
+        # if items:
+        #     for i in items:
+        #         saved = models.CartItems.objects.create(**i)
+        #         new_list.append({"id": saved.id, "item": saved.item.id, "quantity": saved.quantity})
+        # # self.create(validated_data.get('items'))
+        # print(new_list)
+        instance.items = CartItemSerializer(many=True, data=items)
         print(instance.items)
 
         instance.save()
