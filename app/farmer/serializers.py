@@ -54,6 +54,10 @@ class OrderSerializer(serializers.ModelSerializer):
         instance.comment = validated_data.get('comment', instance.comment)
         instance.status = validated_data.get('status', instance.status)
         instance.totalCost = validated_data.get('totalCost', instance.totalCost)
+        items = validated_data.pop('items', None)
+        if items:
+            for i in items:
+                models.CartItems.objects.create(**i)
         # self.create(validated_data.get('items'))
         # print(instance.items)
         instance.items = validated_data.get('items', instance.items)
