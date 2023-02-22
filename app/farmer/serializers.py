@@ -5,6 +5,7 @@ from user.serializers import FarmerSerializer, DistributerSerializer
 
 class CartItemSerializer(serializers.ModelSerializer):
     """Serializer for cart items"""
+
     class Meta:
         model = models.CartItems
         fields = (
@@ -15,6 +16,7 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 class GetCartItemSerializer(serializers.ModelSerializer):
     """Serializer for getting cart items"""
+
     class Meta:
         model = models.CartItems
         fields = (
@@ -55,12 +57,14 @@ class OrderSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get('status', instance.status)
         instance.totalCost = validated_data.get('totalCost', instance.totalCost)
         items = validated_data.pop('items', None)
+        new_list = []
         if items:
             for i in items:
-                models.CartItems.objects.create(**i)
+                saved = models.CartItems.objects.create(**i)
+                new_list.append(saved.id)
         # self.create(validated_data.get('items'))
-        # print(instance.items)
-        instance.items = items
+        print(new_list)
+        instance.items = new_list
         print(instance.items)
 
         instance.save()
