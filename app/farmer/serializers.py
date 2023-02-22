@@ -61,7 +61,7 @@ class OrderSerializer(serializers.ModelSerializer):
         if items:
             for i in items:
                 saved = models.CartItems.objects.create(**i)
-                new_list.append(saved.id)
+                new_list.append({"id": saved.id, "item": saved.item.id, "quantity": saved.quantity})
         # self.create(validated_data.get('items'))
         print(new_list)
         instance.items = new_list
