@@ -20,6 +20,7 @@ import requests
 
 class OrderViewSet(viewsets.ModelViewSet):
     """API view for client order list"""
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = models.FarmerOrders.objects.all()
     serializer_class = serializers.OrderSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)

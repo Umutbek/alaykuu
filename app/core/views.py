@@ -19,6 +19,7 @@ from farmer.models import SaleFarmerCategory, SaleFarmerItem
 
 class ItemViewSet(viewsets.ModelViewSet):
     """Manage item"""
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = models.Item.objects.all()
     serializer_class = serializers.ItemSerializer
 
@@ -28,8 +29,8 @@ class ItemViewSet(viewsets.ModelViewSet):
 
 class AcceptedViewSet(viewsets.ModelViewSet):
     """Manage accepted products"""
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (permissions.AllowAny,)
+    # authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = models.Accepted.objects.all()
     serializer_class = serializers.AcceptedSerializer
 
@@ -57,6 +58,7 @@ class AcceptedViewSet(viewsets.ModelViewSet):
 
 class PaymentViewSet(viewsets.ModelViewSet):
     """Manage accepted products"""
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = models.Payment.objects.all()
     serializer_class = serializers.PaymentSerializer
 
@@ -100,6 +102,7 @@ class NewsViewSet(viewsets.ModelViewSet):
 
 class JobsViewSet(viewsets.ModelViewSet):
     """Manage jobs"""
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = models.Job.objects.all()
     serializer_class = serializers.JobSerializer
 
@@ -109,6 +112,7 @@ class JobsViewSet(viewsets.ModelViewSet):
 
 class MessagesViewSet(viewsets.ModelViewSet):
     """Manage messages"""
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = models.Messages.objects.all()
     serializer_class = serializers.MessagesSerializer
 
@@ -118,6 +122,7 @@ class MessagesViewSet(viewsets.ModelViewSet):
 
 class VideoViewSet(viewsets.ModelViewSet):
     """Manage videos"""
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = models.Video.objects.all()
     serializer_class = serializers.VideoSerializer
 
@@ -127,6 +132,7 @@ class VideoViewSet(viewsets.ModelViewSet):
 
 class SliderViewSet(viewsets.ModelViewSet):
     """Manage slider"""
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = models.Slider.objects.all()
     serializer_class = serializers.SliderSerializer
 
@@ -136,6 +142,7 @@ class SliderViewSet(viewsets.ModelViewSet):
 
 class WebProductsViewSet(viewsets.ModelViewSet):
     """Manage slider"""
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = WebProducts.objects.all()
     serializer_class = serializers.WebProductsSerializer
 
@@ -145,6 +152,7 @@ class WebProductsViewSet(viewsets.ModelViewSet):
 
 class SaleFarmerCategoryViewSet(viewsets.ModelViewSet):
     """Manage slider"""
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = SaleFarmerCategory.objects.all()
     serializer_class = serializers.SaleFarmerCategorySerializer
 
@@ -154,6 +162,7 @@ class SaleFarmerCategoryViewSet(viewsets.ModelViewSet):
 
 class SaleFarmerItemViewSet(viewsets.ModelViewSet):
     """Manage slider"""
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = SaleFarmerItem.objects.all()
     serializer_class = serializers.SaleFarmerItemSerializer
 
