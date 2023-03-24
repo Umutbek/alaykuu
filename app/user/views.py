@@ -71,6 +71,9 @@ class GetMeView(generics.RetrieveUpdateAPIView):
         return self.request.user
 
 
+from rest_framework_simplejwt.tokens import RefreshToken
+
+
 class LoginAPI(APIView):
     """Create a new auth token for user"""
     serializer_class = serializers.LoginSerializer
@@ -81,8 +84,11 @@ class LoginAPI(APIView):
         user = serializer.validated_data['user']
         info = models.User.objects.filter(login=user)
         userdata = serializers.AllUserSerializer(info, many=True)
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({"token": token.key, 'data': userdata.data}, status=200)
+        refresh = RefreshToken.for_user(user)
+        # token, created = Token.objects.get_or_create(user=user)
+        return Response({"refresh": str(refresh),
+                         "access": str(refresh.access_token),
+                        'data': userdata.data}, status=200)
 
 
 class CityViewSet(viewsets.ModelViewSet):
@@ -100,4 +106,12 @@ class DistrictViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
     queryset = models.District.objects.all()
     serializer_class = serializers.DistrictSerializer
+    pagination_class = None
+
+
+class OneCUserViewSet(viewsets.ModelViewSet):
+    # authentication_classes = (TokenAuthentication, )
+    permission_classes = (permissions.AllowAny, )
+    queryset = models.Model1CUser.objects.all()
+    serializer_class = serializers.OneCUserSerializer
     pagination_class = None

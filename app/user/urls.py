@@ -14,6 +14,7 @@ router.register(r'distributer', views.DistributerViewSet)
 router.register(r'laborant', views.LaborantViewSet)
 router.register(r'city', views.CityViewSet)
 router.register(r'district', views.DistrictViewSet)
+router.register(r'oneC_user', views.OneCUserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

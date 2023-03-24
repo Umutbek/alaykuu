@@ -154,3 +154,19 @@ class DistrictSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.District
         fields = ('id', 'nameEn', 'nameRus', 'nameKg', 'city')
+
+
+class OneCUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Model1CUser
+        fields = ('id', 'fullname', 'name', 'login', 'password', 'type')
+        extra_kwargs = {'password':{'write_only':True},}
+
+        read_only_fields = ('id',)
+
+    def create(self, validated_data):
+        """Create user with encrypted password and return it"""
+        user = models.Model1CUser.objects.create_user(**validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user

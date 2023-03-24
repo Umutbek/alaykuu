@@ -99,3 +99,14 @@ class CompanyUser(User):
     class Meta:
         verbose_name = ("Пользователь")
         verbose_name_plural = ("Пользователи")
+
+
+class Model1CUser(User):
+    class Meta:
+        verbose_name = '1С пользователь'
+        verbose_name_plural = '1С пользователи'
+
+    name = models.CharField('Имя 1С пользователя', max_length=200)
+
+    def __str__(self):
+        return str(self.name)

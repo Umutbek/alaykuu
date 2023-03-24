@@ -5,3 +5,4 @@ class UserTypes(models.IntegerChoices):
     FARMER = 2, 'Фермер'
     DISTRIBUTER = 3, 'Поставшик'
     LABORANT = 4, 'ЛАБОРАНТ'
+    ONE_C_USER = 5, '1С ПОЛЬЗОВАТЕЛЬ'

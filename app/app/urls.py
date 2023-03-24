@@ -22,6 +22,7 @@ from django.urls import path, include, re_path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -49,6 +50,9 @@ urlpatterns = [
     path('alaiku/farmer/', include('farmer.urls')),
 
     path('alaiku/', include(swagger_urlpatterns)),
+    # path('alaiku/api/user/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('alaiku/api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('alaiku/api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
