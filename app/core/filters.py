@@ -33,7 +33,9 @@ class AcceptedProductsFilter(FilterSet):
 class PaymentFilter(FilterSet):
     start_date = filters.DateFilter(field_name='date', lookup_expr='gte')
     end_date = filters.DateFilter(field_name='date', lookup_expr='lte')
+    district = filters.CharFilter('district')
+    farmer = filters.CharFilter('farmer')
 
     class Meta:
         models = models.Payment
-        fields = ('start_date', 'end_date')
+        fields = ('start_date', 'end_date', 'farmer', 'district')

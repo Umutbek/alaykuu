@@ -6,6 +6,7 @@ import requests
 from core import imggenerate, utils
 from distributer.models import  Distributer
 from farmer.models import Farmer
+from user.models import District
 
 
 class Item(models.Model):
@@ -68,6 +69,7 @@ class Payment(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
     farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, null=True, blank=True, related_name="payment_farmer",
                                verbose_name="Фермер")
+    district = models.ForeignKey(District, models.SET_NULL, null=True, blank=True, verbose_name='Район')
     totalCost = models.FloatField(default=0, verbose_name="Общая сумма")
     comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарий")
     products = models.ManyToManyField(to=Accepted, null=True,
