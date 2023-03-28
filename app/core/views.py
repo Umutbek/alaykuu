@@ -58,7 +58,7 @@ class AcceptedViewSet(viewsets.ModelViewSet):
 
 class PaymentViewSet(viewsets.ModelViewSet):
     """Manage accepted products"""
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticated, )
     queryset = models.Payment.objects.all()
     serializer_class = serializers.PaymentSerializer
 
