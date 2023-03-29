@@ -50,6 +50,9 @@ class SaleFarmerItem(models.Model):
     description = models.TextField(null=True, blank=True, verbose_name="Описание")
     image = models.ImageField(null=True, blank=True, upload_to=imggenerate.all_image_file_path, verbose_name="Фото")
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Район", related_name="farmer_item_district")
+    districts = models.ManyToManyField(District, null=True, blank=True, verbose_name="Район", related_name="farmer_item_districts_list")
+    is_sale = models.BooleanField('Распродажа', default=False)
+    sale_cost = models.FloatField('Цена распродажи', null=True, blank=True)
 
     def __str__(self):
         return self.name

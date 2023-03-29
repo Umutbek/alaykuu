@@ -113,7 +113,7 @@ class PaymentSerializerGet(serializers.ModelSerializer):
     class Meta:
         model = models.Payment
         fields = (
-            'id', 'date', 'farmer', 'totalCost', 'comment', 'products'
+            'id', 'date', 'farmer', 'district', 'totalCost', 'comment', 'products'
             )
 
         read_only_fields = ('id', 'date')
@@ -125,7 +125,7 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Payment
         fields = (
-            'id', 'date', 'farmer', 'totalCost', 'comment', 'products'
+            'id', 'date', 'farmer', 'district', 'totalCost', 'comment', 'products'
             )
 
         read_only_fields = ('id', 'date')
@@ -235,7 +235,7 @@ class SaleFarmerItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = SaleFarmerItem
         fields = (
-            'id', 'name', 'image', 'category', 'cost', 'description', 'district'
+            'id', 'name', 'image', 'category', 'cost', 'description', 'districts', 'is_sale', 'sale_cost'
         )
 
         read_only_fields = ('id',)

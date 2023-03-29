@@ -3,6 +3,7 @@ from django_filters import FilterSet
 from django_filters import rest_framework as filters
 from core import models
 from django.db.models import Q
+from farmer.models import SaleFarmerItem
 
 
 class ItemFilter(FilterSet):
@@ -39,3 +40,11 @@ class PaymentFilter(FilterSet):
     class Meta:
         models = models.Payment
         fields = ('start_date', 'end_date', 'farmer', 'district')
+
+
+class SaleFarmerItemFilter(FilterSet):
+    districts = filters.ModelMultipleChoiceFilter(queryset=SaleFarmerItem.objects.all())
+
+    class Meta:
+        models = SaleFarmerItem
+        fields = ('districts', )

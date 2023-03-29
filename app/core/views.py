@@ -166,7 +166,8 @@ class SaleFarmerItemViewSet(viewsets.ModelViewSet):
     queryset = SaleFarmerItem.objects.all()
     serializer_class = serializers.SaleFarmerItemSerializer
 
-    filter_backends = (DjangoFilterBackend, SearchFilter)
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filter_class = filters.SaleFarmerItemFilter
 
     search_fields = ('name', 'description')
 
