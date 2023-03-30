@@ -240,3 +240,16 @@ class SaleFarmerItemSerializer(serializers.ModelSerializer):
         )
 
         read_only_fields = ('id',)
+
+
+class SaleFarmerItemSerializerGet(serializers.ModelSerializer):
+    """Serializer for farmer sale products"""
+    districts = DistrictSerializer(many=True)
+
+    class Meta:
+        model = SaleFarmerItem
+        fields = (
+            'id', 'name', 'image', 'category', 'cost', 'description', 'districts', 'is_sale', 'sale_cost'
+        )
+
+        read_only_fields = ('id',)

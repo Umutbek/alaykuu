@@ -86,3 +86,9 @@ class GetOrderSerializer(serializers.ModelSerializer):
         )
 
         read_only_fields = ('id',)
+
+
+class CRUDCartItem(serializers.ModelSerializer):
+    class Meta:
+        model = models.CartItems
+        fields = ('id', 'order', 'item', 'quantity')

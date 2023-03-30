@@ -9,6 +9,7 @@ app_name = 'core'
 router = SimpleRouter()
 
 router.register(r'order', views.OrderViewSet)
+router.register(r'cartItem', views.CartItemViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

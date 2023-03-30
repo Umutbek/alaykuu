@@ -34,3 +34,10 @@ class OrderViewSet(viewsets.ModelViewSet):
             return serializers.GetOrderSerializer
         return serializers.OrderSerializer
 
+
+class CartItemViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    queryset = models.CartItems.objects.all()
+    serializer_class = serializers.CRUDCartItem
+    pagination_class = None
+
