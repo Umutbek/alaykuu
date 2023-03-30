@@ -2,7 +2,7 @@ from rest_framework import serializers
 from core import models
 from website.models import WebProducts
 from farmer.models import SaleFarmerCategory, SaleFarmerItem
-from user.serializers import FarmerSerializer, DistributerSerializer
+from user.serializers import FarmerSerializer, DistributerSerializer, DistrictSerializer
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -109,6 +109,7 @@ class PaymentSerializerGet(serializers.ModelSerializer):
     """Serializer for Payment"""
     products = AcceptedSerializer(many=True)
     farmer = FarmerSerializer()
+    district = DistrictSerializer()
 
     class Meta:
         model = models.Payment
