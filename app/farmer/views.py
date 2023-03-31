@@ -40,7 +40,7 @@ class CartItemViewSet(viewsets.ModelViewSet):
     queryset = models.CartItems.objects.all()
     serializer_class = serializers.CRUDCartItem
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         serializer = serializers.CRUDCartItem
         responseData = []
         for item in request.data['cart_items']:
