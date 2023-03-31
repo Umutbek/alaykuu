@@ -39,3 +39,16 @@ class CartItemViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     queryset = models.CartItems.objects.all()
     serializer_class = serializers.CRUDCartItem
+
+    def post(self, request, *args, **kwargs):
+        serializer = serializers.CRUDCartItem
+        responseData = []
+        for item in request.data['cart_items']:
+            cart_item = models.CartItems.objects.create(order_id=item.get('order'), item_id=item.get('item'),
+                                                        quantity=item.get('quantity'))
+            cart_item.save()
+            data = {
+                'cartItemId': cart_item.id
+            }
+            responseData.append(data)
+        return Response({'data': responseData}, status=status.HTTP_200_OK)
