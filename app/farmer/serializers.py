@@ -67,7 +67,7 @@ class OrderSerializer(serializers.ModelSerializer):
         # print(new_list)
         instance.items = validated_data.get('items', instance.items)
         self.items = validated_data.get('items')
-        itemss = validated_data.get('items')
+        itemss = validated_data.pop('items', None)
         order = models.FarmerOrders.objects.get(pk=instance.id)
         models.CartItems.objects.update(order=order, **itemss)
         # print(instance.items)
