@@ -81,7 +81,7 @@ class CartItemViewSet(viewsets.ModelViewSet):
         serializer = serializers.CRUDCartItem
         responseData = []
         for item in request.data['cart_items']:
-            cart_item = models.CartItems.objects.create(order_id=item.get('order'), item_id=item.get('item'),
+            cart_item = models.CartItems.objects.create(item_id=item.get('item'),
                                                         quantity=item.get('quantity'))
             cart_item.save()
             data = {

@@ -119,4 +119,4 @@ class GetOrderSerializer(serializers.ModelSerializer):
 class CRUDCartItem(serializers.ModelSerializer):
     class Meta:
         model = models.CartItems
-        fields = ('id', 'order', 'item', 'quantity')
+        fields = ('id', 'item', 'quantity')
