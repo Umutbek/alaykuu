@@ -40,15 +40,15 @@ class OrderSerializer(serializers.ModelSerializer):
 
         read_only_fields = ('id',)
 
-    def create(self, validated_data):
-
-        items = validated_data.pop("items", None)
-        order = models.FarmerOrders.objects.create(**validated_data)
-
-        if items:
-            for i in items:
-                models.CartItems.objects.create(order=order, **i)
-        return order
+    # def create(self, validated_data):
+    #
+    #     items = validated_data.pop("items", None)
+    #     order = models.FarmerOrders.objects.create(**validated_data)
+    #
+    #     if items:
+    #         for i in items:
+    #             models.CartItems.objects.create( **i)
+    #     return order
 
     # def update(self, instance, validated_data):
     #     instance.farmer = validated_data.get('farmer', instance.farmer)
