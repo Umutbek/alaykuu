@@ -32,6 +32,8 @@ class OrderViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'list' or self.action == 'retrieve':
             return serializers.GetOrderSerializer
+        if self.action == 'update':
+            return serializers.OrderSerializerUpdate
         return serializers.OrderSerializer
 
 

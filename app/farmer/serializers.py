@@ -72,6 +72,29 @@ class OrderSerializer(serializers.ModelSerializer):
         return instance
 
 
+class OrderSerializerUpdate(serializers.ModelSerializer):
+    """Serializer for client order"""
+    class Meta:
+        model = models.FarmerOrders
+        fields = (
+            'id', 'items', 'farmer', 'distributer', 'date', 'comment',
+            'status', 'totalCost'
+        )
+
+        read_only_fields = ('id',)
+
+    def update(self, instance, validated_data):
+        instance.farmer = validated_data.get('farmer', instance.farmer)
+        instance.distributer = validated_data.get('distributer', instance.distributer)
+        instance.comment = validated_data.get('comment', instance.comment)
+        instance.status = validated_data.get('status', instance.status)
+        instance.totalCost = validated_data.get('totalCost', instance.totalCost)
+        instance.items = validated_data.get('items', instance.items)
+        instance.save()
+
+        return instance
+
+
 class GetOrderSerializer(serializers.ModelSerializer):
     """Serializer for getting order"""
     items = GetCartItemSerializer(many=True, required=False, allow_null=True)
