@@ -40,6 +40,10 @@ class OrderViewSet(viewsets.ModelViewSet):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        order = models.FarmerOrders.objects.get(pk=instance.id)
+        order.items = request.data['items']
+        # items = serializer.data('items')
+        order.save()
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 
@@ -48,7 +52,6 @@ class OrderViewSet(viewsets.ModelViewSet):
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
 
-        order = models.FarmerOrders.objects.get(pk=instance.id)
         # order.cartitems_set = []
         # order.save()
         order.cartitems_set.update(self, request.data['items'])
