@@ -56,7 +56,7 @@ class OrderSerializer(serializers.ModelSerializer):
         instance.comment = validated_data.get('comment', instance.comment)
         instance.status = validated_data.get('status', instance.status)
         instance.totalCost = validated_data.get('totalCost', instance.totalCost)
-        self.items.set()
+        # self.items.set()
         # items = validated_data.pop('items', None)
         # new_list = []
         # if items:
