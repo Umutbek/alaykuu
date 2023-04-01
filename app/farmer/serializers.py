@@ -66,7 +66,7 @@ class OrderSerializer(serializers.ModelSerializer):
         # # self.create(validated_data.get('items'))
         # print(new_list)
         instance.items = validated_data.get('items', instance.items)
-        # self.items = validated_data.get('items', instance.items)
+        self.items = validated_data.get('items', instance.items)
         # print(instance.items)
 
         instance.save()
