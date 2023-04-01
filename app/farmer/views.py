@@ -54,7 +54,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
         # order.cartitems_set = []
         # order.save()
-        order.cartitems_set.update(self, request.data['items'])
+        # order.cartitems_set.update(self, request.data['items'])
         # order.save()
 
         return Response(serializer.data)
