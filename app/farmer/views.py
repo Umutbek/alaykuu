@@ -51,7 +51,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         order = models.FarmerOrders.objects.get(pk=instance.id)
         # order.cartitems_set = []
         # order.save()
-        order.cartitems_set.update(request.data['items'])
+        order.cartitems_set.update(self, request.data['items'])
         # order.save()
 
         return Response(serializer.data)
