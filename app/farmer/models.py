@@ -76,8 +76,8 @@ class FarmerOrders(models.Model):
         return self.cartitems_set.all()
 
     @items.setter
-    def items(self):
-        self.cartitems_set.set()
+    def items(self, item):
+        self.items = item
         
 
     class Meta:
