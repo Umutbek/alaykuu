@@ -48,7 +48,7 @@ class OrderViewSet(viewsets.ModelViewSet):
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
 
-        order = models.FarmerOrders.objects.get(pk=kwargs)
+        order = models.FarmerOrders.objects.get(pk=instance.id)
         order.items = request.data['items']
         order.save()
 
