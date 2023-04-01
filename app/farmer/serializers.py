@@ -29,7 +29,7 @@ class GetCartItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     """Serializer for client order"""
-    items = CartItemSerializer(many=True, required=False, allow_null=True)
+    # items = CartItemSerializer(many=True, required=False, allow_null=True)
 
     class Meta:
         model = models.FarmerOrders

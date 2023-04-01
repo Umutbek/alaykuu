@@ -36,16 +36,16 @@ class OrderViewSet(viewsets.ModelViewSet):
         #     return serializers.OrderSerializerUpdate
         return serializers.OrderSerializer
 
-    def create(self, request, *args, **kwargs):
-        serializer = serializers.OrderSerializer(data=request.data)
-        ourItems = request.data['items']
-        if ourItems:
-            for i in request.data['items']:
-                cartItems = models.CartItems.objects.create(**i)
-
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+    # def create(self, request, *args, **kwargs):
+    #     serializer = serializers.OrderSerializer(data=request.data)
+    #     ourItems = request.data['items']
+    #     if ourItems:
+    #         for i in request.data['items']:
+    #             cartItems = models.CartItems.objects.create(item_id=i['item'], quantity=i['quantity'])
+    #
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response(serializer.data)
 
 
     # def update(self, request, *args, **kwargs):
