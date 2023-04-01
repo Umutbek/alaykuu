@@ -77,7 +77,7 @@ class FarmerOrders(models.Model):
 
     @items.setter
     def items(self, value):
-        self.cartitems_set = value
+        self.cartitems_set.set()
         
 
     class Meta:
