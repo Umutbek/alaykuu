@@ -48,8 +48,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
         items = request.data['items']
-        serializer.data('items')
-        serializer.update()
+        serializer.data('items').update(items)
+        # serializer.update()
 
         return Response(serializer.data)
 
