@@ -75,6 +75,11 @@ class FarmerOrders(models.Model):
     def items(self):
         return self.cartitems_set.all()
 
+    @items.setter
+    def items(self, value):
+        self.cartitems_set = value
+        
+
     class Meta:
         verbose_name = ("Заказ")
         verbose_name_plural = ("Заказы")
