@@ -63,42 +63,9 @@ class SaleFarmerItem(models.Model):
         verbose_name_plural = ("Продукты для продажи фермерам")
 
 
-class CartItems(models.Model):
-    """Models for images"""
-    # order = models.ForeignKey(FarmerOrders, on_delete=models.CASCADE, null=True, blank=True)
-    item = models.ForeignKey(SaleFarmerItem, on_delete=models.CASCADE, null=True, blank=True,  verbose_name="Товар")
-    quantity = models.IntegerField(default=0, verbose_name="Количество")
-
-    def __str__(self):
-        return str(self.item.id)
-
-    class Meta:
-        verbose_name = ("Товар")
-        verbose_name_plural = ("Товары")
-
-
-class FarmerOrders(models.Model):
-    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Фермер")
-    distributer = models.ForeignKey(Distributer, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Дистрибьютер")
-    date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
-    comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарий")
-    status = FSMIntegerField(choices=utils.OrderStatuses.choices, default=utils.OrderStatuses.New, verbose_name="Статус")
-    totalCost = models.IntegerField(default=0, verbose_name="Общая сумма")
-    items = models.ManyToManyField(CartItems, blank=True, verbose_name='Товары')
-
-    # @property
-    # def items(self):
-    #     return self.cartitems_set.all()
-
-
-    class Meta:
-        verbose_name = ("Заказ")
-        verbose_name_plural = ("Заказы")
-
-
 # class CartItems(models.Model):
 #     """Models for images"""
-#     order = models.ForeignKey(FarmerOrders, on_delete=models.CASCADE, null=True, blank=True)
+#     # order = models.ForeignKey(FarmerOrders, on_delete=models.CASCADE, null=True, blank=True)
 #     item = models.ForeignKey(SaleFarmerItem, on_delete=models.CASCADE, null=True, blank=True,  verbose_name="Товар")
 #     quantity = models.IntegerField(default=0, verbose_name="Количество")
 #
@@ -108,3 +75,36 @@ class FarmerOrders(models.Model):
 #     class Meta:
 #         verbose_name = ("Товар")
 #         verbose_name_plural = ("Товары")
+
+
+class FarmerOrders(models.Model):
+    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Фермер")
+    distributer = models.ForeignKey(Distributer, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Дистрибьютер")
+    date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
+    comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарий")
+    status = FSMIntegerField(choices=utils.OrderStatuses.choices, default=utils.OrderStatuses.New, verbose_name="Статус")
+    totalCost = models.IntegerField(default=0, verbose_name="Общая сумма")
+    # items = models.ManyToManyField(CartItems, blank=True, verbose_name='Товары')
+
+    @property
+    def items(self):
+        return self.cartitems_set.all()
+
+
+    class Meta:
+        verbose_name = ("Заказ")
+        verbose_name_plural = ("Заказы")
+
+
+class CartItems(models.Model):
+    """Models for images"""
+    order = models.ForeignKey(FarmerOrders, on_delete=models.CASCADE, null=True, blank=True)
+    item = models.ForeignKey(SaleFarmerItem, on_delete=models.CASCADE, null=True, blank=True,  verbose_name="Товар")
+    quantity = models.IntegerField(default=0, verbose_name="Количество")
+
+    def __str__(self):
+        return str(self.item.id)
+
+    class Meta:
+        verbose_name = ("Товар")
+        verbose_name_plural = ("Товары")
