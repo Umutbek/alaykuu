@@ -49,9 +49,9 @@ class OrderViewSet(viewsets.ModelViewSet):
             instance._prefetched_objects_cache = {}
 
         order = models.FarmerOrders.objects.get(pk=instance.id)
-        order.items = []
-        order.save()
-        order.items = request.data['items']
+        # order.cartitems_set = []
+        # order.save()
+        order.cartitems_set = request.data['items']
         order.save()
 
         return Response(serializer.data)
