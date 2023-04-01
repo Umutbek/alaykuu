@@ -29,7 +29,7 @@ class GetCartItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     """Serializer for client order"""
-    # items = CartItemSerializer(many=True, required=False, allow_null=True)
+    items = CartItemSerializer(many=True, required=False, allow_null=True)
 
     class Meta:
         model = models.FarmerOrders
@@ -50,26 +50,26 @@ class OrderSerializer(serializers.ModelSerializer):
                 models.CartItems.objects.create(order=order, **i)
         return order
 
-    # def update(self, instance, validated_data):
-    #     instance.farmer = validated_data.get('farmer', instance.farmer)
-    #     instance.distributer = validated_data.get('distributer', instance.distributer)
-    #     instance.comment = validated_data.get('comment', instance.comment)
-    #     instance.status = validated_data.get('status', instance.status)
-    #     instance.totalCost = validated_data.get('totalCost', instance.totalCost)
-    #     items = validated_data.pop('items', None)
-    #     # new_list = []
-    #     # if items:
-    #     #     for i in items:
-    #     #         saved = models.CartItems.objects.create(**i)
-    #     #         new_list.append({"id": saved.id, "item": saved.item.id, "quantity": saved.quantity})
-    #     # # self.create(validated_data.get('items'))
-    #     # print(new_list)
-    #     instance.items = items
-    #     print(instance.items)
-    #
-    #     instance.save()
-    #
-    #     return instance
+    def update(self, instance, validated_data):
+        instance.farmer = validated_data.get('farmer', instance.farmer)
+        instance.distributer = validated_data.get('distributer', instance.distributer)
+        instance.comment = validated_data.get('comment', instance.comment)
+        instance.status = validated_data.get('status', instance.status)
+        instance.totalCost = validated_data.get('totalCost', instance.totalCost)
+        # items = validated_data.pop('items', None)
+        # new_list = []
+        # if items:
+        #     for i in items:
+        #         saved = models.CartItems.objects.create(**i)
+        #         new_list.append({"id": saved.id, "item": saved.item.id, "quantity": saved.quantity})
+        # # self.create(validated_data.get('items'))
+        # print(new_list)
+        instance.items = validated_data.get('items', instance.items)
+        print(instance.items)
+
+        instance.save()
+
+        return instance
 
 
 class GetOrderSerializer(serializers.ModelSerializer):
