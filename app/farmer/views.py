@@ -47,7 +47,9 @@ class OrderViewSet(viewsets.ModelViewSet):
             # If 'prefetch_related' has been applied to a queryset, we need to
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
-
+        items = request.data['items']
+        serializer.data('items')
+        serializer.update()
 
         return Response(serializer.data)
 
