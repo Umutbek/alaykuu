@@ -313,12 +313,12 @@ AUTH_USER_MODEL = 'user.User'
 
 # SECURE_HSTS_SECONDS = True
 # SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = False
+# SESSION_COOKIE_SECURE = False
 # CSRF_COOKIE_SECURE = True
-
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
-CSRF_TRUSTED_ORIGINS = ['http://176.126.164.39', 'http://alaiku.com/', 'https://alaiku.com/']
+#
+#
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
+# CSRF_TRUSTED_ORIGINS = ['http://176.126.164.39', 'http://alaiku.com/', 'https://alaiku.com/']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
