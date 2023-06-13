@@ -40,7 +40,7 @@ class GetAcceptedSerializer(serializers.ModelSerializer):
         model = models.Accepted
         fields = (
             'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost',
-            'status', 'comment', 'sort', 'fat', 'acidity', 'date', 'payment_method'
+            'status', 'comment', 'sort', 'fat', 'acidity', 'date', 'payment_method', 'sync_with_oneC'
             )
 
         read_only_fields = ('id', 'date')
