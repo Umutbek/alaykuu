@@ -52,3 +52,16 @@ class CartItemViewSet(viewsets.ModelViewSet):
             }
             responseData.append(data)
         return Response({'data': responseData}, status=status.HTTP_200_OK)
+
+
+class CartItemsViewSet(APIView):
+    authentication_classes = []
+
+    def post(self, request):
+        data = []
+        for i in request.data['cart_items']:
+            cart_item = models.CartItems.objects.create(item_id=i['item'], quantity=i['quantity'])
+            cart_item.save()
+            id = {'id': f'{cart_item.id}'}
+            data.append(id)
+        return Response({'data': data})

@@ -13,4 +13,5 @@ router.register(r'cartItem', views.CartItemViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('cart_items/', views.CartItemsViewSet.as_view()),
 ]
