@@ -43,7 +43,7 @@ class FarmerSerializer(serializers.ModelSerializer):
         model = Farmer
         fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back',
                   'passport_text', 'city', 'district', 'address', 'comment', 'farmer_type', 'active', 'rating', 'longitude', 'latitude',
-                  'verified', 'payment_left', 'type', 'password'
+                  'verified', 'payment_left', 'type', 'password', 'oneC_id'
                   )
 
         extra_kwargs = {'password':{'write_only':True},}
@@ -65,7 +65,8 @@ class DistributerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Distributer
         fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back', 'type',
-                  'passport_text', 'city', 'district', 'address', 'comment', 'active', 'rating', 'type', 'password'
+                  'passport_text', 'city', 'district', 'address', 'comment', 'active', 'rating', 'type', 'password',
+                  'oneC_id'
                   )
         extra_kwargs = {'password':{'write_only':True},}
 

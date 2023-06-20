@@ -15,7 +15,7 @@ class Farmer(User):
     verified = models.BooleanField(default=False, verbose_name="Проверено?")
     payment_left = models.FloatField(null=True, blank=True, verbose_name="Оставшаяся сумма")
     farmer_type = FSMIntegerField(choices=utils.FarmerTypes.choices, null=True, blank=True, verbose_name="Категории фермеров")
-
+    oneC_id = models.CharField(max_length=256, null=True, blank=True, verbose_name='1С ID')
     # def save(self):
     #     if self.type == None:
     #         self.type = 2

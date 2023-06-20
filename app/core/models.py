@@ -19,6 +19,7 @@ class Item(models.Model):
     issale = models.BooleanField(default=False, verbose_name="Акция?")
     cost = models.FloatField(default=0, verbose_name="Цена товара")
     costSale = models.FloatField(default=0, verbose_name="Акционная цена товара")
+    oneC_id = models.CharField(max_length=256, verbose_name='1С ID', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -59,6 +60,7 @@ class Accepted(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
     payment_method = models.CharField(max_length=200, null=True, blank=True, verbose_name="Метод оплаты")
     sync_with_oneC = models.BooleanField('Статус синхронизации с 1С', default=False)
+    ref = models.CharField(max_length=256, null=True, blank=True)
 
     class Meta:
         ordering = ('-id',)

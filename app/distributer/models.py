@@ -17,3 +17,5 @@ class Distributer(User):
         ordering = ('-id',)
         verbose_name = ("Распределитель")
         verbose_name_plural = ("Распределители")
+
+    oneC_id = models.CharField(max_length=256, null=True, blank=True, verbose_name='1С ID')
