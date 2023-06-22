@@ -1,3 +1,5 @@
+import base64
+
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status, permissions, generics
@@ -213,10 +215,10 @@ class SyncWithOneCViewSet(APIView):
                 auth_username = 'Администратор'
                 auth_password = ''
 
+                credentials = base64.b64encode(f"{auth_username}:{auth_password}".encode('utf-8')).decode('utf-8')
+
                 headers = {
-                    "Content-Type": "application/json, charset=utf-8",
-                    "Accept-Encoding": "gzip, deflate, br",
-                    "Accept": "*/*"
+                    'Authorization': f'Basic {credentials}'
                 }
 
 
@@ -244,7 +246,7 @@ class SyncWithOneCViewSet(APIView):
                 }
 
                 oneC_request = requests.post('http://212.42.107.229/alayku/hs/exchange/document/purchase/',
-                                             json=send_data, auth=(auth_username, auth_password), headers=headers)
+                                             json=send_data, headers=headers)
                 response_data.append(oneC_request.json())
             else:
                 message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
