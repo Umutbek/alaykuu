@@ -185,15 +185,13 @@ class SaleFarmerItemViewSet(viewsets.ModelViewSet):
         return serializers.SaleFarmerItemSerializer
 
 
-def remove_bom(text):
-    bom_chars = ['\ufeff', '\ufffe']  # UTF-8 BOM символы
+import json
 
-    for bom in bom_chars:
-        if text.startswith(bom):
-            text = text[len(bom):]
-            break
+def remove_bom_from_json(json_data):
+    json_text = json_data.decode('utf-8-sig')  # Декодируем текст в кодировке UTF-8-sig, удаляя BOM символы
+    json_object = json.loads(json_text)  # Преобразуем текст JSON в объект Python
+    return json_object
 
-    return text
 
 
 class SyncWithOneCViewSet(APIView):
@@ -256,10 +254,12 @@ class SyncWithOneCViewSet(APIView):
                     ]
                 }
 
+                json_object_without_bom = remove_bom_from_json(send_data)
+
                 oneC_request = requests.post('http://212.42.107.229/alayku/hs/exchange/document/purchase/',
-                                             json=send_data, headers=headers)
-                request_response = remove_bom(oneC_request.json())
-                response_data.append(request_response)
+                                             json=json_object_without_bom, headers=headers)
+                # request_response = remove_bom(oneC_request.json())
+                response_data.append(oneC_request.json())
             else:
                 message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
                 response_data.append(message)
