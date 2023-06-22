@@ -22,4 +22,5 @@ router.register(r'farmer_sale_item', views.SaleFarmerItemViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('synchronization_with_oneC/', views.SyncWithOneCViewSet.as_view())
 ]

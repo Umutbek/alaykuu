@@ -8,6 +8,9 @@ from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters import FilterSet
+from datetime import datetime
+import requests
+
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -178,3 +181,66 @@ class SaleFarmerItemViewSet(viewsets.ModelViewSet):
         if self.action == 'list' or self.action == 'retrieve':
             return serializers.SaleFarmerItemSerializerGet
         return serializers.SaleFarmerItemSerializer
+
+
+class SyncWithOneCViewSet(APIView):
+    authentication_classes = []
+
+    def post(self, request):
+        accepted_products_id = request.data['accepted_products']
+        response_data = []
+        for i in accepted_products_id:
+            accepted_product = models.Accepted.objects.filter(pk=i['id']).first()
+            if accepted_product.ref is None:
+                if accepted_product.unit == 2:
+                    dimension = 0
+                else:
+                    dimension = 1
+
+                if accepted_product.status == 1:
+                    payment_status = True
+                else:
+                    payment_status = False
+
+                current_datetime = datetime.now()
+                accepted_date = accepted_product.date
+                formatted_current_datetime = current_datetime.strftime('%Y-%m-%dT%H:%M:%S')
+                if accepted_product.date is None or accepted_product.date == "":
+                    formatted_accepted_date = formatted_current_datetime
+                else:
+                    formatted_accepted_date = accepted_date.strftime('%Y-%m-%dT%H:%M:%S')
+
+                auth_username = 'Администратор'
+                auth_password = ''
+
+
+                send_data = {
+                    "Date": f"{formatted_current_datetime}",
+                    "Поставщик": f"{accepted_product.farmer.oneC_id}",
+                    "Контрагент": f"{accepted_product.distrubutor.oneC_id}",
+                    "ПодотчетноеЛицо": "a6b90ec0-0ff9-11ee-99b3-e0d55eb23d4f",
+                    "Организации": "f9232d18-0ff4-11ee-99b3-e0d55eb23d4f",
+                    "Валюта": 417,
+                    "ФормаОплаты": 0,
+                    "Комментарий": f"{accepted_product.comment}",
+                    "TabularSection": [
+                        {
+                            "Номенклатура": f"{accepted_product.item.oneC_id}",
+                            "Количество": accepted_product.amount,
+                            "Измерение": dimension,
+                            "Цена": accepted_product.item.cost,
+                            "Скидка": 0,
+                            "ОбшаяСумма": accepted_product.totalCost,
+                            "ДатаОплаты": f"{formatted_accepted_date}",
+                            "СтатусОплаты": payment_status
+                        }
+                    ]
+                }
+
+                oneC_request = requests.post('http://212.42.107.229/alayku/hs/exchange/document/purchase/',
+                                             json=send_data, auth=(auth_username, auth_password))
+                response_data.append(oneC_request.json())
+            else:
+                message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
+                response_data.append(message)
+        return Response({'response': response_data})
