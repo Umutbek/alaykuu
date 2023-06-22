@@ -213,6 +213,12 @@ class SyncWithOneCViewSet(APIView):
                 auth_username = 'Администратор'
                 auth_password = ''
 
+                headers = {
+                    "Content-Type": "application/json, charset=utf-8",
+                    "Accept-Encoding": "gzip, deflate, br",
+                    "Accept": "*/*"
+                }
+
 
                 send_data = {
                     "Date": f"{formatted_current_datetime}",
@@ -238,7 +244,7 @@ class SyncWithOneCViewSet(APIView):
                 }
 
                 oneC_request = requests.post('http://212.42.107.229/alayku/hs/exchange/document/purchase/',
-                                             json=send_data, auth=(auth_username, auth_password))
+                                             json=send_data, auth=(auth_username, auth_password), headers=headers)
                 response_data.append(oneC_request.json())
             else:
                 message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
