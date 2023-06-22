@@ -217,7 +217,7 @@ class SyncWithOneCViewSet(APIView):
                 send_data = {
                     "Date": f"{formatted_current_datetime}",
                     "Поставщик": f"{accepted_product.farmer.oneC_id}",
-                    "Контрагент": f"{accepted_product.distrubutor.oneC_id}",
+                    "Контрагент": f"{accepted_product.distributor.oneC_id}",
                     "ПодотчетноеЛицо": "a6b90ec0-0ff9-11ee-99b3-e0d55eb23d4f",
                     "Организации": "f9232d18-0ff4-11ee-99b3-e0d55eb23d4f",
                     "Валюта": 417,
