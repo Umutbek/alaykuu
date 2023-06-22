@@ -254,11 +254,18 @@ class SyncWithOneCViewSet(APIView):
                     ]
                 }
 
-                json_object_without_bom = remove_bom_from_json(send_data)
+                # json_object_without_bom = remove_bom_from_json(send_data)
+                #
+                # oneC_request = requests.post('http://212.42.107.229/alayku/hs/exchange/document/purchase/',
+                #                              json=json_object_without_bom, headers=headers)
+                # # request_response = remove_bom(oneC_request.json())
+                send_data_json = json.dumps(send_data)  # Преобразование словаря send_data в JSON строку
+                send_data_json_bytes = send_data_json.encode('utf-8')  # Кодирование JSON строки в байты
+
+                send_data_without_bom = remove_bom_from_json(send_data_json_bytes)  # Удаление BOM символов из JSON
 
                 oneC_request = requests.post('http://212.42.107.229/alayku/hs/exchange/document/purchase/',
-                                             json=json_object_without_bom, headers=headers)
-                # request_response = remove_bom(oneC_request.json())
+                                             json=send_data_without_bom, headers=headers)
                 response_data.append(oneC_request.json())
             else:
                 message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
