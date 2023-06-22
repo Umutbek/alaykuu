@@ -247,7 +247,7 @@ class SyncWithOneCViewSet(APIView):
 
                 oneC_request = requests.post('http://212.42.107.229/alayku/hs/exchange/document/purchase/',
                                              json=send_data, headers=headers)
-                response_data.append(oneC_request.json())
+                response_data.append(oneC_request.status_code)
             else:
                 message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
                 response_data.append(message)
