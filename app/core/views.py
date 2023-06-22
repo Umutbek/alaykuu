@@ -192,6 +192,15 @@ def remove_bom_from_json(json_data):
     json_object = json.loads(json_text)  # Преобразуем текст JSON в объект Python
     return json_object
 
+def remove_bom(data):
+    bom_chars = [b'\xef\xbb\xbf', b'\xff\xfe']  # UTF-8 и UTF-16 BOM символы
+
+    for bom in bom_chars:
+        if data.startswith(bom):
+            data = data[len(bom):]
+            break
+
+    return data
 
 
 class SyncWithOneCViewSet(APIView):
@@ -262,7 +271,10 @@ class SyncWithOneCViewSet(APIView):
                 send_data_json = json.dumps(send_data)  # Преобразование словаря send_data в JSON строку
                 send_data_json_bytes = send_data_json.encode('utf-8')  # Кодирование JSON строки в байты
 
-                send_data_without_bom = remove_bom_from_json(send_data_json_bytes)  # Удаление BOM символов из JSON
+                send_data_json_bytes_without_bom = remove_bom(send_data_json_bytes)  # Удаление BOM символов из данных
+
+                send_data_without_bom = json.loads(
+                    send_data_json_bytes_without_bom.decode('utf-8'))  # Преобразование данных в объект Python
 
                 oneC_request = requests.post('http://212.42.107.229/alayku/hs/exchange/document/purchase/',
                                              json=send_data_without_bom, headers=headers)
