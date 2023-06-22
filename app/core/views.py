@@ -276,6 +276,7 @@ class SyncWithOneCViewSet(APIView):
                 response_data.append(oneC_request.json())
                 ref = oneC_request.json()['Ref']
                 accepted_product.ref = ref
+                accepted_product.save()
             else:
                 message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
                 response_data.append(message)
