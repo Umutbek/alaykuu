@@ -154,7 +154,7 @@ class DistrictSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.District
-        fields = ('id', 'nameEn', 'nameRus', 'nameKg', 'city')
+        fields = ('id', 'nameEn', 'nameRus', 'nameKg', 'city', 'oneC_id')
 
 
 class OneCUserSerializer(serializers.ModelSerializer):

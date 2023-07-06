@@ -30,6 +30,7 @@ class District(models.Model):
     nameRus = models.CharField(max_length=200, null=True, verbose_name="Название на русском")
     nameKg = models.CharField(max_length=200, null=True, verbose_name="Название на кыргызком")
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, verbose_name="Город")
+    oneC_id = models.CharField('1С ID', max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.nameRus
