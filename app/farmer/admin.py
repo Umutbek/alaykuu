@@ -46,7 +46,7 @@ class ModelOrderAdmin(admin.ModelAdmin):
                                                'totalCost', 'status')}),
     )
 
-# admin.site.register(models.Farmer, FarmerAdmin)
+admin.site.register(models.Farmer, FarmerAdmin)
 # admin.site.register(models.SaleFarmerCategory)
 # admin.site.register(models.SaleFarmerItem)
 # admin.site.register(models.FarmerOrders, ModelOrderAdmin)
