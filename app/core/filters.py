@@ -25,10 +25,12 @@ class AcceptedProductsFilter(FilterSet):
     sort = filters.CharFilter('sort')
     start_date = filters.DateFilter(field_name="date", lookup_expr='gte')
     end_date = filters.DateFilter(field_name="date", lookup_expr='lte')
+    gte_fat = filters.CharFilter(field_name='fat', lookup_expr='gte')
+    lte_fat = filters.CharFilter(field_name='fat', lookup_expr='lte')
 
     class Meta:
         models = models.Accepted
-        fields = ('farmer', 'distributor', 'sort', 'status', 'start_date', 'end_date')
+        fields = ('farmer', 'distributor', 'sort', 'status', 'start_date', 'end_date', 'gte_fat', 'lte_fat')
 
 
 class PaymentFilter(FilterSet):
