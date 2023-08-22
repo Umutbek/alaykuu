@@ -69,6 +69,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_class = filters.PaymentFilter
+    search_fields = ('farmer_fullname', )
 
     def get_queryset(self):
         return self.queryset.all().order_by('-id')
