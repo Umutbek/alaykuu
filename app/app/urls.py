@@ -51,8 +51,8 @@ urlpatterns = [
 
     path('alaiku/', include(swagger_urlpatterns)),
     # path('alaiku/api/user/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('alaiku/api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('alaiku/api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('alaiku/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('alaiku/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
