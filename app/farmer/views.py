@@ -25,6 +25,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.OrderSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_class = filters.OrderFilter
+    search_fields = ('farmer__fullname', 'distributer__fullname')
 
     def get_queryset(self):
         return self.queryset.all().order_by("-id")
