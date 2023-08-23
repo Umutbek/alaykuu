@@ -61,6 +61,8 @@ class Accepted(models.Model):
     payment_method = models.CharField(max_length=200, null=True, blank=True, verbose_name="Метод оплаты")
     sync_with_oneC = models.BooleanField('Статус синхронизации с 1С', default=False)
     ref = models.CharField(max_length=256, null=True, blank=True)
+    farmerReview = models.FloatField('Обзор фермера', default=0)
+    farmerComment = models.TextField('Комментарий фермера', blank=True)
 
 
     class Meta:

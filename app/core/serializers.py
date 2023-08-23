@@ -39,8 +39,9 @@ class GetAcceptedSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Accepted
         fields = (
-            'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost',
-            'status', 'comment', 'sort', 'fat', 'acidity', 'date', 'payment_method', 'sync_with_oneC', 'ref'
+            'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost', 'status',
+            'comment', 'sort', 'fat', 'acidity', 'date', 'payment_method', 'sync_with_oneC', 'ref',
+            'farmerReview', 'farmerComment'
             )
 
         read_only_fields = ('id', 'date')
@@ -52,8 +53,8 @@ class AcceptedSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Accepted
         fields = (
-            'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost',
-            'status', 'comment', 'sort', 'fat', 'acidity', 'date', 'payment_method', 'ref'
+            'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost', 'status',
+            'comment', 'sort', 'fat', 'acidity', 'date', 'payment_method', 'ref', 'farmerReview', 'farmerComments'
             )
 
         read_only_fields = ('id', 'date')
