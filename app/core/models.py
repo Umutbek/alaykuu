@@ -62,6 +62,7 @@ class Accepted(models.Model):
     sync_with_oneC = models.BooleanField('Статус синхронизации с 1С', default=False)
     ref = models.CharField(max_length=256, null=True, blank=True)
 
+
     class Meta:
         ordering = ('-id',)
         verbose_name = ("Принятый продукт")

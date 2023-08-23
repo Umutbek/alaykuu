@@ -13,3 +13,8 @@ class FarmerTypes(models.IntegerChoices):
     Small = 1, 'Мелкий'
     Medium = 2, 'Средний'
     Large = 3, 'Крупный'
+
+
+CASH = 'cash'
+CARD = 'card'
+PAYMENT_TYPE = ((CARD, 'С картой'), (CASH, 'С наличными'))

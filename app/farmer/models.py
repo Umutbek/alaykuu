@@ -16,6 +16,10 @@ class Farmer(User):
     payment_left = models.FloatField(null=True, blank=True, verbose_name="Оставшаяся сумма")
     farmer_type = FSMIntegerField(choices=utils.FarmerTypes.choices, null=True, blank=True, verbose_name="Категории фермеров")
     oneC_id = models.CharField(max_length=256, null=True, blank=True, verbose_name='1С ID')
+    milkCost = models.FloatField('Стоимость молока', default=0)
+    paymentType = models.CharField('Тип оплаты', choices=utils.PAYMENT_TYPE, default=utils.CARD, max_length=10)
+    cardNumber = models.CharField('Номер карты', max_length=200, blank=True)
+
     # def save(self):
     #     if self.type == None:
     #         self.type = 2
