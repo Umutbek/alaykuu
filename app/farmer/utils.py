@@ -18,3 +18,5 @@ class FarmerTypes(models.IntegerChoices):
 CASH = 'cash'
 CARD = 'card'
 PAYMENT_TYPE = ((CARD, 'С картой'), (CASH, 'С наличными'))
+
+MilkCostConst = 30.0

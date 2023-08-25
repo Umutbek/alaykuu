@@ -18,6 +18,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, action
 import requests
+
+from farmer.utils import MilkCostConst
 from website.models import WebProducts
 from farmer.models import SaleFarmerCategory, SaleFarmerItem
 
@@ -58,6 +60,23 @@ class AcceptedViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         saved_data = serializer.save()
 
+        return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        updated_data = self.perform_update(serializer)
+        new_instance = self.get_object()
+
+        if new_instance.fat < 3.4:
+            new_milk_cost = MilkCostConst - ((3.4-new_instance.fat) * 10 * 0.5)
+            district_id = new_instance.farmer.district_id
+            farmers = models.Farmer.objects.filter(district_id=district_id)
+            for i in farmers:
+                i.milkCost = new_milk_cost
+                i.save()
         return Response(serializer.data)
 
 
