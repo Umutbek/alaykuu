@@ -58,7 +58,7 @@ class Accepted(models.Model):
     fat = models.FloatField(default=0, verbose_name="Жирность")
     acidity = models.FloatField(default=0, verbose_name="Кислотность")
     date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
-    date_second = models.CharField(blank=True, verbose_name='Дата срока', max_length=100)
+    date_second = models.CharField(blank=True, verbose_name='Дата срока', max_length=100, null=True)
     payment_method = models.CharField(max_length=200, null=True, blank=True, verbose_name="Метод оплаты")
     sync_with_oneC = models.BooleanField('Статус синхронизации с 1С', default=False)
     ref = models.CharField(max_length=256, null=True, blank=True)
