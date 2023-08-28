@@ -37,7 +37,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 class AcceptedViewSet(viewsets.ModelViewSet):
     """Manage accepted products"""
     # authentication_classes = (TokenAuthentication,)
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = models.Accepted.objects.all()
     serializer_class = serializers.AcceptedSerializer
 

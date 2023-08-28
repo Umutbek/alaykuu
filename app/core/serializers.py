@@ -40,7 +40,7 @@ class GetAcceptedSerializer(serializers.ModelSerializer):
         model = models.Accepted
         fields = (
             'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost', 'status',
-            'comment', 'sort', 'fat', 'acidity', 'date', 'date_other', 'date_second', 'payment_method', 'ref',
+            'comment', 'sort', 'fat', 'acidity', 'date', 'date_second', 'payment_method', 'ref',
             'sync_with_oneC', 'farmerReview', 'farmerComment'
             )
 
@@ -54,7 +54,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
         model = models.Accepted
         fields = (
             'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost', 'status',
-            'comment', 'sort', 'fat', 'acidity', 'date', 'date_other', 'date_second', 'payment_method', 'ref',
+            'comment', 'sort', 'fat', 'acidity', 'date', 'date_second', 'payment_method', 'ref',
             'farmerReview', 'farmerComment'
             )
 
