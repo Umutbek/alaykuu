@@ -6,6 +6,7 @@ import requests
 from core import imggenerate, utils
 from distributer.models import  Distributer
 from farmer.models import Farmer
+from farmer.utils import PAYMENT_TYPE, CASH
 from user.models import District
 
 
@@ -60,6 +61,7 @@ class Accepted(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
     date_second = models.DateField('Date', blank=True, null=True)
     payment_method = models.CharField(max_length=200, null=True, blank=True, verbose_name="Метод оплаты")
+    payment_type = models.CharField('Тип оплаты', choices=PAYMENT_TYPE, default=CASH, max_length=10)
     sync_with_oneC = models.BooleanField('Статус синхронизации с 1С', default=False)
     ref = models.CharField(max_length=256, null=True, blank=True)
     farmerReview = models.FloatField('Обзор фермера', default=0)

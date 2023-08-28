@@ -40,7 +40,7 @@ class GetAcceptedSerializer(serializers.ModelSerializer):
         model = models.Accepted
         fields = (
             'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost', 'status',
-            'comment', 'sort', 'fat', 'acidity', 'date', 'date_second', 'payment_method', 'ref',
+            'comment', 'sort', 'fat', 'acidity', 'date', 'date_second', 'payment_method', 'payment_type', 'ref',
             'sync_with_oneC', 'farmerReview', 'farmerComment'
             )
 
@@ -54,7 +54,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
         model = models.Accepted
         fields = (
             'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost', 'status',
-            'comment', 'sort', 'fat', 'acidity', 'date', 'date_second', 'payment_method', 'ref',
+            'comment', 'sort', 'fat', 'acidity', 'date', 'date_second', 'payment_method', 'payment_type', 'ref',
             'farmerReview', 'farmerComment'
             )
 
@@ -74,6 +74,9 @@ class AcceptedSerializer(serializers.ModelSerializer):
             farmer = models.Farmer.objects.filter(id=accepted_item.farmer.id).first()
             farmer.payment_left = farmer.payment_left + accepted_item.totalCost
             farmer.save()
+
+        accepted_item.payment_type = accepted_item.farmer.paymentType
+        accepted_item.save()
 
         return accepted_item
 
@@ -96,6 +99,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
         instance.fat = validated_data.get('fat', instance.fat)
         instance.acidity = validated_data.get('acidity', instance.acidity)
         instance.payment_method = validated_data.get('payment_method', instance.payment_method)
+        instance.payment_type = validated_data.get('payment_type', instance.payment_type)
 
         instance.save()
 
