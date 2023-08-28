@@ -44,7 +44,7 @@ class GetAcceptedSerializer(serializers.ModelSerializer):
             'farmerReview', 'farmerComment'
             )
 
-        read_only_fields = ('id', 'date')
+        read_only_fields = ('id', )
 
 
 class AcceptedSerializer(serializers.ModelSerializer):
@@ -57,7 +57,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
             'comment', 'sort', 'fat', 'acidity', 'date', 'date_other', 'payment_method', 'ref', 'farmerReview', 'farmerComment'
             )
 
-        read_only_fields = ('id', 'date')
+        read_only_fields = ('id', )
 
     def create(self, validated_data):
         """Create user with encrypted password and return it"""
