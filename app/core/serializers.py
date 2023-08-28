@@ -87,6 +87,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
 
         instance.totalCost = validated_data.get('totalCost', instance.totalCost)
         instance.amount = validated_data.get('amount', instance.amount)
+        instance.date_second = validated_data.get('date_secon', instance.date_second)
 
         instance.discount = validated_data.get('discount', instance.discount)
         instance.unit = validated_data.get('unit', instance.unit)
