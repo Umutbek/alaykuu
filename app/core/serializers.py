@@ -259,4 +259,10 @@ class SaleFarmerItemSerializerGet(serializers.ModelSerializer):
             'id', 'name', 'image', 'category', 'cost', 'description', 'districts', 'is_sale', 'sale_cost'
         )
 
-        read_only_fields = ('id',)
+        read_only_fields = ('id', )
+
+
+class ImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Images
+        fields = ('id', 'title', 'image')

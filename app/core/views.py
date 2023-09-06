@@ -301,3 +301,10 @@ class SyncWithOneCViewSet(APIView):
                 message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
                 response_data.append(message)
         return Response({'response': response_data})
+
+
+class ImagesViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    queryset = models.Images.objects.all()
+    serializer_class = serializers.ImagesSerializer
+    pagination_class = None

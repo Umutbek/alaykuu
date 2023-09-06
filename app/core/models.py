@@ -155,3 +155,15 @@ class Slider(models.Model):
         ordering = ('-id',)
         verbose_name = ("Слайдер")
         verbose_name_plural = ("Слайдеры")
+
+
+class Images(models.Model):
+    class Meta:
+        verbose_name = 'Рисунок'
+        verbose_name_plural = 'Рисунки'
+
+    title = models.CharField('Заголовок', max_length=200)
+    image = models.ImageField('Рисунок', upload_to='uploads/')
+
+    def __str__(self):
+        return str(self.title)

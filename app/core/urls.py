@@ -19,6 +19,7 @@ router.register(r'slider', views.SliderViewSet)
 router.register(r'webproducts', views.WebProductsViewSet)
 router.register(r'farmer_sale_category', views.SaleFarmerCategoryViewSet)
 router.register(r'farmer_sale_item', views.SaleFarmerItemViewSet)
+router.register(r'images', views.ImagesViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
