@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import random
 
 from drf_yasg.utils import swagger_auto_schema
@@ -146,9 +147,9 @@ class RequestPasswordResetView(APIView):
         from django.core.mail import send_mail
         from django.utils.encoding import smart_str
 
-        message = smart_str(f'Код для сброса пароля: {user.reset_code}')
+        message = smart_str(f'Code: {user.reset_code}')
         send_mail(
-            subject='Сброс пароля',
+            subject='Password reset!',
             message=message,
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[recovery_email],
