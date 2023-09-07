@@ -73,9 +73,14 @@ class AcceptedViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         updated_data = self.perform_update(serializer)
         new_instance = self.get_object()
+        new_milk_cost = 0
 
-        if new_instance.fat < 3.4:
-            new_milk_cost = MilkCostConst - ((3.4-new_instance.fat) * 10 * 0.5)
+        if new_instance.fat < 3.4 and new_instance.fat > 0 and new_instance.probnik == 0:
+            new_milk_cost = MilkCostConst - ((3.4 - new_instance.fat) * 10 * 0.5)
+        else:
+            if new_instance.fat == 0 and new_instance.probnik > 0 and new_instance.probnik < 3.4:
+                new_milk_cost = MilkCostConst - ((3.4 - new_instance.probnik) * 10 * 0.5)
+        if new_milk_cost:
             district_id = new_instance.farmer.district_id
             farmers = models.Farmer.objects.filter(district_id=district_id)
             for i in farmers:
@@ -300,6 +305,7 @@ class SyncWithOneCViewSet(APIView):
                 response_data.append(oneC_request.json())
                 ref = oneC_request.json()['Ref']
                 accepted_product.ref = ref
+                accepted_product.status = 1
                 accepted_product.save()
             else:
                 message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
