@@ -144,9 +144,12 @@ class RequestPasswordResetView(APIView):
         user.reset_code = code
         from django.conf import settings
         from django.core.mail import send_mail
+        from django.utils.encoding import smart_str
+
+        message = smart_str(f'Код для сброса пароля: {user.reset_code}')
         send_mail(
             subject='Сброс пароля',
-            message=f'Код для сброса пароля: {user.reset_code}',
+            message=message,
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[recovery_email],
             fail_silently=False,
