@@ -270,7 +270,7 @@ class ImagesSerializer(serializers.ModelSerializer):
 
 
 class SetFatSerializer(serializers.Serializer):
-    items = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    items = serializers.ListSerializer(child=serializers.IntegerField(min_value=0))
     fat = serializers.FloatField()
 
     class Meta:
