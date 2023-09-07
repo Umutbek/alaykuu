@@ -33,7 +33,7 @@ class CompanyUserViewSet(viewsets.ModelViewSet):
 
 class FarmerViewSet(viewsets.ModelViewSet):
     """Manage Farmers"""
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.AllowAny,)
     queryset = Farmer.objects.all()
     serializer_class = serializers.FarmerSerializer
     pagination_class = None

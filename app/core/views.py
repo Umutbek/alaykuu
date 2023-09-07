@@ -1,9 +1,12 @@
 import base64
 
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status, permissions, generics
 from django.shortcuts import redirect
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 from core import models, serializers, filters
 from django.views.generic import TemplateView
 from rest_framework.views import APIView
@@ -19,6 +22,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, action
 import requests
 
+from core.serializers import SetFatSerializer
 from farmer.utils import MilkCostConst
 from website.models import WebProducts
 from farmer.models import SaleFarmerCategory, SaleFarmerItem
@@ -308,3 +312,22 @@ class ImagesViewSet(viewsets.ModelViewSet):
     queryset = models.Images.objects.all()
     serializer_class = serializers.ImagesSerializer
     pagination_class = None
+
+
+class SetFatViewSet(APIView):
+    permission_classes = (permissions.IsAuthenticated, )
+    authentication_classes = [JWTAuthentication]
+
+    @swagger_auto_schema(request_body=SetFatSerializer())
+    def post(self, request):
+        items = request.data['items']
+        fat = request.data['fat']
+        data = []
+        for item in items:
+            product = models.Accepted.objects.filter(pk=item).first()
+            if product:
+                product.fat = fat
+                product.save()
+                data.append({'items': product.id})
+
+        return Response({'success': data})

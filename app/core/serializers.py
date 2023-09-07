@@ -41,7 +41,7 @@ class GetAcceptedSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost', 'status',
             'comment', 'sort', 'fat', 'acidity', 'date', 'date_second', 'payment_method', 'payment_type', 'ref',
-            'sync_with_oneC', 'farmerReview', 'farmerComment'
+            'sync_with_oneC', 'farmerReview', 'farmerComment', 'probnik'
             )
 
         read_only_fields = ('id', )
@@ -55,7 +55,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'item', 'farmer', 'distributor', 'amount', 'unit', 'unitCost', 'discount', 'totalCost', 'status',
             'comment', 'sort', 'fat', 'acidity', 'date', 'date_second', 'payment_method', 'payment_type', 'ref',
-            'farmerReview', 'farmerComment'
+            'farmerReview', 'farmerComment', 'probnik'
             )
 
         read_only_fields = ('id', )
@@ -100,6 +100,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
         instance.acidity = validated_data.get('acidity', instance.acidity)
         instance.payment_method = validated_data.get('payment_method', instance.payment_method)
         instance.payment_type = validated_data.get('payment_type', instance.payment_type)
+        instance.probnik = validated_data.get('probnik', instance.probnik)
 
         instance.save()
 
@@ -266,3 +267,11 @@ class ImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Images
         fields = ('id', 'title', 'image')
+
+
+class SetFatSerializer(serializers.Serializer):
+    items = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    fat = serializers.FloatField()
+
+    class Meta:
+        fields = ('items', 'fat')

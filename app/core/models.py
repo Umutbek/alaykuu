@@ -56,7 +56,7 @@ class Accepted(models.Model):
     status = FSMIntegerField(choices=utils.AcceptStatus.choices, default=utils.AcceptStatus.paid, verbose_name="Статус оплаты")
     comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарии")
     sort = models.ForeignKey(Sort, on_delete=models.CASCADE, null=True, blank=True)
-    fat = models.FloatField(default=0, verbose_name="Жирность")
+    fat = models.FloatField(default=0, verbose_name="Общая жирность")
     acidity = models.FloatField(default=0, verbose_name="Кислотность")
     date = models.DateTimeField(auto_now_add=True, null=True, verbose_name="Дата")
     date_second = models.DateField('Date', blank=True, null=True)
@@ -66,6 +66,7 @@ class Accepted(models.Model):
     ref = models.CharField(max_length=256, null=True, blank=True)
     farmerReview = models.FloatField('Обзор фермера', default=0)
     farmerComment = models.TextField('Комментарий фермера', blank=True)
+    probnik = models.FloatField('Пробник', default=0)
 
 
     class Meta:
