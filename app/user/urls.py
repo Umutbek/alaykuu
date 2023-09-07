@@ -19,5 +19,9 @@ router.register(r'oneC_user', views.OneCUserViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path("login/", views.LoginAPI.as_view()),
-    path('getme/', views.GetMeView.as_view())
+    path('getme/', views.GetMeView.as_view()),
+    path('password/reset_request/', RequestPasswordResetView.as_view()),
+    path('passwor/reset/', ValidateResetCodeView.as_view()),
+    path('change_password/without_old_password/', ChangePasswordWithoutOldPasswordView.as_view(),
+         name='change_password_without_old_password')
 ]

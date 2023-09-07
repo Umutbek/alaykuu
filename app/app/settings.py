@@ -325,6 +325,12 @@ AUTH_USER_MODEL = 'user.User'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+EMAIL_HOST_USER = 'alaiku.apps@gmail.com'
+EMAIL_HOST_PASSWORD = '7@H66*WhX'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 try:
     from .local_settings import *
 except ImportError:

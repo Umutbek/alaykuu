@@ -78,6 +78,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     active = models.BooleanField(default=False, verbose_name="Статус активации?")
     rating = models.FloatField(default=5, verbose_name="Рейтинг")
     type = FSMIntegerField(choices=utils.UserTypes.choices, null=True, blank=True)
+    reset_code = models.CharField(verbose_name='Код для сброса пароля', max_length=6, blank=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

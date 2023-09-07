@@ -170,3 +170,39 @@ class OneCUserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class PasswordResetRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+    class Meta:
+        fields = ('email', )
+
+
+class PasswordResetRequestResponse(serializers.Serializer):
+    message = serializers.CharField(max_length=2)
+
+    class Meta:
+        fields = ('message', )
+
+
+class PasswordResetSerializer(serializers.Serializer):
+    code = serializers.CharField(max_length=6)
+
+    class Meta:
+        fields = ('code', )
+
+
+class PasswordResetResponse(serializers.Serializer):
+    token = serializers.CharField(max_length=50)
+    data = serializers.IntegerField(help_text='User ID')
+
+    class Meta:
+        fields = ('token', 'data')
+
+
+class ChangePasswordWithoutOldPasswordSerializer(serializers.Serializer):
+    models = User
+
+    new_password = serializers.CharField(required=True)
+    user_id = serializers.CharField(required=True)
