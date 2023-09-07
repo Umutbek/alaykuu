@@ -131,7 +131,7 @@ class RequestPasswordResetView(APIView):
 
     @swagger_auto_schema(request_body=PasswordResetRequestSerializer(), responses={200: PasswordResetRequestResponse()})
     def post(self, request, format=None):
-        serializer = serializers.PasswordResetRequestResponse(data=request.data)
+        serializer = serializers.PasswordResetRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         recovery_email = serializer.validated_data.get('email')
         user = User.objects.filter(login=recovery_email).first()
