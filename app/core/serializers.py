@@ -101,6 +101,7 @@ class AcceptedSerializer(serializers.ModelSerializer):
         instance.payment_method = validated_data.get('payment_method', instance.payment_method)
         instance.payment_type = validated_data.get('payment_type', instance.payment_type)
         instance.probnik = validated_data.get('probnik', instance.probnik)
+        instance.farmerComment = validated_data.get('farmerComment', instance.farmerComment)
 
         instance.save()
 
