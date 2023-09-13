@@ -8,15 +8,15 @@ from farmer import utils
 # Create your models here.
 
 
-class ModelCows(models.Model):
+class   ModelCows(models.Model):
     class Meta:
         verbose_name = 'Корова'
         verbose_name_plural = 'Коровы'
 
-    name = models.CharField('Название', max_length=200)
+    cow_id = models.CharField('Название', max_length=200)
 
     def __str__(self):
-        return str(self.name)
+        return str(self.cow_id)
 
 
 class Farmer(User):

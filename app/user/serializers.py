@@ -39,8 +39,8 @@ class CompanyUserSerializer(serializers.ModelSerializer):
 class CowSerializer(serializers.ModelSerializer):
     class Meta:
         model = ModelCows
-        fields = ('id', 'name')
-        read_only_fields = ('id', )
+        fields = ('cow_id', )
+        # read_only_fields = ('id', )
 
 
 class FarmerSerializer(serializers.ModelSerializer):
