@@ -74,6 +74,12 @@ class FarmerSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+    def update(self, instance, validated_data):
+        cows = validated_data['cows']
+        for i in cows:
+            instance.cows.add(i)
+        instance.save()
+
 
 class DistributerSerializer(serializers.ModelSerializer):
     """Serializer for distributer"""
