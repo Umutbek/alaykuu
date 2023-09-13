@@ -80,7 +80,7 @@ class FarmerSerializer(serializers.ModelSerializer):
             cow = ModelCows.objects.create(**i)
             instance.cows.add(cow.id)
         instance.save()
-
+        return instance
 
 class DistributerSerializer(serializers.ModelSerializer):
     """Serializer for distributer"""
