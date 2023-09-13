@@ -8,6 +8,17 @@ from farmer import utils
 # Create your models here.
 
 
+class ModelCows(models.Model):
+    class Meta:
+        verbose_name = 'Корова'
+        verbose_name_plural = 'Коровы'
+
+    name = models.CharField('Название', max_length=200)
+
+    def __str__(self):
+        return str(self.name)
+
+
 class Farmer(User):
     """Model for farmer"""
     longitude = models.FloatField(null=True, blank=True)
@@ -19,6 +30,7 @@ class Farmer(User):
     milkCost = models.FloatField('Стоимость молока', default=0)
     paymentType = models.CharField('Тип оплаты', choices=utils.PAYMENT_TYPE, default=utils.CARD, max_length=10)
     cardNumber = models.CharField('Номер карты', max_length=200, blank=True)
+    cows = models.ManyToManyField(ModelCows, blank=True, verbose_name='Коровы')
 
     # def save(self):
     #     if self.type == None:

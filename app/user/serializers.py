@@ -4,7 +4,7 @@ from django_filters import rest_framework as filters
 User = get_user_model()
 from rest_framework.authtoken.models import Token
 from user import models
-from farmer.models import Farmer
+from farmer.models import Farmer, ModelCows
 from distributer.models import Distributer
 from  laborant.models import LaborantUser
 
@@ -36,24 +36,41 @@ class CompanyUserSerializer(serializers.ModelSerializer):
         return user
 
 
+class CowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ModelCows
+        fields = ('id', 'name')
+        read_only_fields = ('id', )
+
+
 class FarmerSerializer(serializers.ModelSerializer):
     """Serializer for farmer"""
+    cows = CowSerializer(many=True, required=False, allow_null=True)
 
     class Meta:
         model = Farmer
-        fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back',
+        fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back', 'cows',
                   'passport_text', 'city', 'district', 'address', 'comment', 'farmer_type', 'active', 'rating', 'longitude', 'latitude',
                   'verified', 'payment_left', 'type', 'password', 'oneC_id', 'milkCost', 'paymentType', 'cardNumber'
                   )
 
         extra_kwargs = {'password': {'write_only': True}, }
-        read_only_fields = ('id',)
+        read_only_fields = ('id', )
 
     def create(self, validated_data):
         """Create user with encrypted password and return it"""
+        cows = validated_data.pop('cows', None)
+        cows_id = []
+        if cows:
+            for i in cows:
+                cow = ModelCows.objects.create(**i)
+                cows_id.append(cow.id)
         user = Farmer.objects.create_user(**validated_data)
         user.set_password(validated_data['password'])
         user.type = 2
+        user.save()
+        for i in cows_id:
+            user.cows.add(cows_id)
         user.save()
         return user
 
@@ -153,7 +170,7 @@ class DistrictSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.District
-        fields = ('id', 'nameEn', 'nameRus', 'nameKg', 'city', 'oneC_id')
+        fields = ('id', 'nameEn', 'nameRus', 'nameKg', 'city', 'oneC_id', 'milkCost')
 
 
 class OneCUserSerializer(serializers.ModelSerializer):

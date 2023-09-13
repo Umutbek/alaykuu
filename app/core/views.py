@@ -302,11 +302,15 @@ class SyncWithOneCViewSet(APIView):
 
                 oneC_request = requests.post('http://212.42.107.229/alayku/hs/exchange/document/purchase/',
                                              json=send_data_without_bom, headers=headers)
-                response_data.append(oneC_request.json())
-                ref = oneC_request.json()['Ref']
-                accepted_product.ref = ref
-                accepted_product.status = 1
-                accepted_product.save()
+                try:
+                    response_data.append(oneC_request.json())
+                    ref = oneC_request.json()['Ref']
+                    accepted_product.ref = ref
+                    accepted_product.status = 1
+                    accepted_product.save()
+                except:
+                    accepted_product.status = 1
+                    accepted_product.save()
             else:
                 message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
                 response_data.append(message)
