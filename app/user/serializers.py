@@ -70,7 +70,7 @@ class FarmerSerializer(serializers.ModelSerializer):
         user.type = 2
         user.save()
         for i in cows_id:
-            user.cows.add(cows_id)
+            user.cows.add(i)
         user.save()
         return user
 
