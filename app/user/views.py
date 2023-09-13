@@ -52,6 +52,17 @@ class FarmerViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_class = filters.FarmerFilters
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.milkCost == 0:
+            try:
+                instance.milkCost = instance.district.milkCost
+                instance.save()
+            except:
+                pass
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
 
 class DistributerViewSet(viewsets.ModelViewSet):
     """Manage Distributers"""
