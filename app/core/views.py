@@ -302,6 +302,7 @@ class SyncWithOneCViewSet(APIView):
 
                 oneC_request = requests.post('http://212.42.107.229/alayku/hs/exchange/document/purchase/',
                                              json=send_data_without_bom, headers=headers)
+                accepted_product.sync_with_oneC = True
                 try:
                     response_data.append(oneC_request.json())
                     ref = oneC_request.json()['Ref']
