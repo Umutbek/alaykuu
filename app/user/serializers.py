@@ -75,14 +75,18 @@ class FarmerSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
-        cows = validated_data['cows']
+        cows = None
+        try:
+            cows = validated_data['cows']
+        except:
+            pass
         cows_id = []
         if cows:
             for i in cows:
                 cow = ModelCows.objects.create(**i)
                 cows_id.append(cow.id)
-        instance.cows.set(cows_id)
-        instance.save()
+            instance.cows.set(cows_id)
+            instance.save()
         return instance
 
 
