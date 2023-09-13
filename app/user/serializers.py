@@ -77,13 +77,13 @@ class FarmerSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         cows = validated_data['cows']
         if cows:
-            instance.cows = None
-            instance.save()
-            for i in cows:
-                cow = ModelCows.objects.create(**i)
-                instance.cows.add(cow.id)
+            # for i in cows:
+            #     cow = ModelCows.objects.create(**i)
+            #     instance.cows.add(cow.id)
+            instance.cows.set(cows)
         instance.save()
         return instance
+
 
 class DistributerSerializer(serializers.ModelSerializer):
     """Serializer for distributer"""
