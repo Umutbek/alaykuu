@@ -74,21 +74,6 @@ class FarmerSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-    def update(self, instance, validated_data):
-        cows = None
-        try:
-            cows = validated_data['cows']
-        except:
-            pass
-        cows_id = []
-        if cows:
-            for i in cows:
-                cow = ModelCows.objects.create(**i)
-                cows_id.append(cow.id)
-            instance.cows.set(cows_id)
-            instance.save()
-        return instance
-
 
 class DistributerSerializer(serializers.ModelSerializer):
     """Serializer for distributer"""
