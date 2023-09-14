@@ -97,6 +97,8 @@ class AcceptedViewSet(viewsets.ModelViewSet):
                         new_instance.unitCost = new_instance.farmer.milkCost - 1.5
                     elif minus_num <= 0.4 and minus_num > 0:
                         new_instance.unitCost = new_instance.farmer.milkCost - 2
+        new_instance.totalCost = new_instance.amount * new_instance.unitCost
+        new_instance.save()
 
 
         # if new_instance.fat < 3.4 and new_instance.fat > 0 and new_instance.probnik == 0:
