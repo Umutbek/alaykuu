@@ -76,7 +76,7 @@ class AcceptedViewSet(viewsets.ModelViewSet):
         new_milk_cost = 0
 
         if new_instance.probnik > 0 and new_instance.probnik < 3.4:
-            minus_num = 3.4 - new_instance.probnik
+            minus_num = new_instance.probnik
             if minus_num < 3.4 and minus_num > 2.4:
                 new_instance.unitCost = new_instance.farmer.milkCost - 0.5
             elif minus_num <= 2.4 and minus_num > 1.4:
@@ -88,7 +88,7 @@ class AcceptedViewSet(viewsets.ModelViewSet):
         else:
             if new_instance.probnik == 0:
                 if new_instance.fat > 0 and new_instance.fat < 3.4:
-                    minus_num = 3.4 - new_instance.fat
+                    minus_num = new_instance.fat
                     if minus_num < 3.4 and minus_num > 2.4:
                         new_instance.unitCost = new_instance.farmer.milkCost - 0.5
                     elif minus_num <= 2.4 and minus_num > 1.4:
@@ -97,6 +97,8 @@ class AcceptedViewSet(viewsets.ModelViewSet):
                         new_instance.unitCost = new_instance.farmer.milkCost - 1.5
                     elif minus_num <= 0.4 and minus_num > 0:
                         new_instance.unitCost = new_instance.farmer.milkCost - 2
+            else:
+                new_instance.unitCost = new_instance.Farmer.milkCost
         new_instance.totalCost = new_instance.amount * new_instance.unitCost
         new_instance.save()
 
