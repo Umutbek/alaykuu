@@ -166,9 +166,10 @@ class DistrictViewSet(viewsets.ModelViewSet):
             # If 'prefetch_related' has been applied to a queryset, we need to
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
+        new_instance = self.get_object()
         farmers = Farmer.objects.filter(pk=instance.id)
         for i in farmers:
-            i.milkCost = instance.milkCost
+            i.milkCost = new_instance.milkCost
             i.save()
         return Response(serializer.data)
 
