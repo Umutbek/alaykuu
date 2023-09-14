@@ -55,7 +55,7 @@ class FarmerSerializer(serializers.ModelSerializer):
                   )
 
         extra_kwargs = {'password': {'write_only': True}, }
-        read_only_fields = ('id', )
+        read_only_fields = ('id', 'milkCost')
 
     def create(self, validated_data):
         """Create user with encrypted password and return it"""
@@ -68,6 +68,10 @@ class FarmerSerializer(serializers.ModelSerializer):
         user = Farmer.objects.create_user(**validated_data)
         user.set_password(validated_data['password'])
         user.type = 2
+        try:
+            user.milkCost = user.district.milkCost
+        except:
+            user.milkCost = 0
         user.save()
         for i in cows_id:
             user.cows.add(i)
