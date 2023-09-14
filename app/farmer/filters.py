@@ -20,7 +20,8 @@ class OrderFilter(FilterSet):
 
 class FarmerFilters(FilterSet):
     farmer_type = filters.CharFilter('farmer_type')
+    district = filters.CharFilter('district')
 
     class Meta:
         models = models.Farmer
-        fields = ('farmer_type',)
+        fields = ('farmer_type', 'district')
