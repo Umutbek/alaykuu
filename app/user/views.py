@@ -167,7 +167,7 @@ class DistrictViewSet(viewsets.ModelViewSet):
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
         new_instance = self.get_object()
-        farmers = Farmer.objects.filter(district_id=instance.district.id)
+        farmers = Farmer.objects.filter(district_id=instance.id)
         for i in farmers:
             i.milkCost = new_instance.milkCost
             i.save()
