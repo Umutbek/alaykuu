@@ -104,7 +104,8 @@ class AcceptedViewSet(viewsets.ModelViewSet):
             product.unitCost = product.farmer.milkCost
         elif product.probnik > 0 and product.probnik < 3.4:
             minus_num = product.probnik
-            product.unitCost = 5 * (3.4 - minus_num)
+            product.unitCost = product.farmer.milkCost - (5 * (3.4 - minus_num))
+
             # if minus_num < 3.4 and minus_num > 2.4:
             #     product.unitCost = product.farmer.milkCost - 0.5
             # elif minus_num <= 2.4 and minus_num > 1.4:
@@ -117,7 +118,7 @@ class AcceptedViewSet(viewsets.ModelViewSet):
             if product.probnik == 0:
                 if product.fat > 0 and product.fat < 3.4:
                     minus_num = product.fat
-                    product.unitCost = 5*(3.4-minus_num)
+                    product.unitCost = product.farmer.milkCost - (5*(3.4-minus_num))
                     # if minus_num < 3.4 and minus_num > 2.4:
                     #     product.unitCost = product.farmer.milkCost - 0.5
                     # elif minus_num <= 2.4 and minus_num > 1.4:
@@ -400,7 +401,7 @@ class SetFatViewSet(APIView):
                     product.unitCost = product.farmer.milkCost
                 elif product.probnik > 0 and product.probnik < 3.4:
                     minus_num = product.probnik
-                    product.unitCost = 5*(3.4-minus_num)
+                    product.unitCost = product.farmer.milkCost - (5*(3.4-minus_num))
                     # if minus_num < 3.4 and minus_num > 2.4:
                     #     product.unitCost = product.farmer.milkCost - 0.5
                     # elif minus_num <= 2.4 and minus_num > 1.4:
@@ -413,7 +414,7 @@ class SetFatViewSet(APIView):
                     if product.probnik == 0:
                         if product.fat > 0 and product.fat < 3.4:
                             minus_num = product.fat
-                            product.unitCost = 5 * (3.4 - minus_num)
+                            product.unitCost = product.farmer.milkCost - (5 * (3.4 - minus_num))
                             # if minus_num < 3.4 and minus_num > 2.4:
                             #     product.unitCost = product.farmer.milkCost - 0.5
                             # elif minus_num <= 2.4 and minus_num > 1.4:
