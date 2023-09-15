@@ -72,69 +72,69 @@ class AcceptedViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         updated_data = self.perform_update(serializer)
-        new_instance = self.get_object()
+        product = self.get_object()
         new_milk_cost = 0
 
-        # if new_instance.probnik > 0 and new_instance.probnik < 3.4:
-        #     minus_num = new_instance.probnik
+        # if product.probnik > 0 and product.probnik < 3.4:
+        #     minus_num = product.probnik
         #     if minus_num < 3.4 and minus_num > 2.4:
-        #         new_instance.unitCost = new_instance.farmer.milkCost - 0.5
+        #         product.unitCost = product.farmer.milkCost - 0.5
         #     elif minus_num <= 2.4 and minus_num > 1.4:
-        #         new_instance.unitCost = new_instance.farmer.milkCost - 1
+        #         product.unitCost = product.farmer.milkCost - 1
         #     elif minus_num <= 1.4 and minus_num > 0.4:
-        #         new_instance.unitCost = new_instance.farmer.milkCost - 1.5
+        #         product.unitCost = product.farmer.milkCost - 1.5
         #     elif minus_num <= 0.4 and minus_num > 0:
-        #         new_instance.unitCost = new_instance.farmer.milkCost - 2
+        #         product.unitCost = product.farmer.milkCost - 2
         # else:
-        #     if new_instance.probnik == 0:
-        #         if new_instance.fat > 0 and new_instance.fat < 3.4:
-        #             minus_num = new_instance.fat
+        #     if product.probnik == 0:
+        #         if product.fat > 0 and product.fat < 3.4:
+        #             minus_num = product.fat
         #             if minus_num < 3.4 and minus_num > 2.4:
-        #                 new_instance.unitCost = new_instance.farmer.milkCost - 0.5
+        #                 product.unitCost = product.farmer.milkCost - 0.5
         #             elif minus_num <= 2.4 and minus_num > 1.4:
-        #                 new_instance.unitCost = new_instance.farmer.milkCost - 1
+        #                 product.unitCost = product.farmer.milkCost - 1
         #             elif minus_num <= 1.4 and minus_num > 0.4:
-        #                 new_instance.unitCost = new_instance.farmer.milkCost - 1.5
+        #                 product.unitCost = product.farmer.milkCost - 1.5
         #             elif minus_num <= 0.4 and minus_num > 0:
-        #                 new_instance.unitCost = new_instance.farmer.milkCost - 2
+        #                 product.unitCost = product.farmer.milkCost - 2
         #     else:
-        #         new_instance.unitCost = new_instance.Farmer.milkCost
+        #         product.unitCost = product.Farmer.milkCost
 
-        if new_instance.probnik >= 3.4 or new_instance.fat >= 3.4:
-            new_instance.unitCost = new_instance.farmer.milkCost
-        elif new_instance.probnik > 0 and new_instance.probnik < 3.4:
-            minus_num = new_instance.probnik
+        if product.probnik >= 3.4 or product.fat >= 3.4:
+            product.unitCost = product.farmer.milkCost
+        elif product.probnik > 0 and product.probnik < 3.4:
+            minus_num = product.probnik
             if minus_num < 3.4 and minus_num > 2.4:
-                new_instance.unitCost = new_instance.farmer.milkCost - 0.5
+                product.unitCost = product.farmer.milkCost - 0.5
             elif minus_num <= 2.4 and minus_num > 1.4:
-                new_instance.unitCost = new_instance.farmer.milkCost - 1
+                product.unitCost = product.farmer.milkCost - 1
             elif minus_num <= 1.4 and minus_num > 0.4:
-                new_instance.unitCost = new_instance.farmer.milkCost - 1.5
+                product.unitCost = product.farmer.milkCost - 1.5
             elif minus_num <= 0.4 and minus_num > 0:
-                new_instance.unitCost = new_instance.farmer.milkCost - 2
+                product.unitCost = product.farmer.milkCost - 2
         else:
-            if new_instance.probnik == 0:
-                if new_instance.fat > 0 and new_instance.fat < 3.4:
-                    minus_num = new_instance.fat
+            if product.probnik == 0:
+                if product.fat > 0 and product.fat < 3.4:
+                    minus_num = product.fat
                     if minus_num < 3.4 and minus_num > 2.4:
-                        new_instance.unitCost = new_instance.farmer.milkCost - 0.5
+                        product.unitCost = product.farmer.milkCost - 0.5
                     elif minus_num <= 2.4 and minus_num > 1.4:
-                        new_instance.unitCost = new_instance.farmer.milkCost - 1
+                        product.unitCost = product.farmer.milkCost - 1
                     elif minus_num <= 1.4 and minus_num > 0.4:
-                        new_instance.unitCost = new_instance.farmer.milkCost - 1.5
+                        product.unitCost = product.farmer.milkCost - 1.5
                     elif minus_num <= 0.4 and minus_num > 0:
-                        new_instance.unitCost = new_instance.farmer.milkCost - 2
-        new_instance.totalCost = new_instance.amount * new_instance.unitCost
-        new_instance.save()
+                        product.unitCost = product.farmer.milkCost - 2
+        product.totalCost = product.amount * product.unitCost
+        product.save()
 
 
-        # if new_instance.fat < 3.4 and new_instance.fat > 0 and new_instance.probnik == 0:
-        #     new_milk_cost = MilkCostConst - ((3.4 - new_instance.fat) * 10 * 0.5)
+        # if product.fat < 3.4 and product.fat > 0 and product.probnik == 0:
+        #     new_milk_cost = MilkCostConst - ((3.4 - product.fat) * 10 * 0.5)
         # else:
-        #     if new_instance.fat == 0 and new_instance.probnik > 0 and new_instance.probnik < 3.4:
-        #         new_milk_cost = MilkCostConst - ((3.4 - new_instance.probnik) * 10 * 0.5)
+        #     if product.fat == 0 and product.probnik > 0 and product.probnik < 3.4:
+        #         new_milk_cost = MilkCostConst - ((3.4 - product.probnik) * 10 * 0.5)
         # if new_milk_cost:
-        #     district_id = new_instance.farmer.district_id
+        #     district_id = product.farmer.district_id
         #     farmers = models.Farmer.objects.filter(district_id=district_id)
         #     for i in farmers:
         #         i.milkCost = new_milk_cost
@@ -394,6 +394,33 @@ class SetFatViewSet(APIView):
             if product:
                 product.fat = fat
                 product.save()
+                if product.probnik >= 3.4 or product.fat >= 3.4:
+                    product.unitCost = product.farmer.milkCost
+                elif product.probnik > 0 and product.probnik < 3.4:
+                    minus_num = product.probnik
+                    if minus_num < 3.4 and minus_num > 2.4:
+                        product.unitCost = product.farmer.milkCost - 0.5
+                    elif minus_num <= 2.4 and minus_num > 1.4:
+                        product.unitCost = product.farmer.milkCost - 1
+                    elif minus_num <= 1.4 and minus_num > 0.4:
+                        product.unitCost = product.farmer.milkCost - 1.5
+                    elif minus_num <= 0.4 and minus_num > 0:
+                        product.unitCost = product.farmer.milkCost - 2
+                else:
+                    if product.probnik == 0:
+                        if product.fat > 0 and product.fat < 3.4:
+                            minus_num = product.fat
+                            if minus_num < 3.4 and minus_num > 2.4:
+                                product.unitCost = product.farmer.milkCost - 0.5
+                            elif minus_num <= 2.4 and minus_num > 1.4:
+                                product.unitCost = product.farmer.milkCost - 1
+                            elif minus_num <= 1.4 and minus_num > 0.4:
+                                product.unitCost = product.farmer.milkCost - 1.5
+                            elif minus_num <= 0.4 and minus_num > 0:
+                                product.unitCost = product.farmer.milkCost - 2
+                product.totalCost = product.amount * product.unitCost
+                product.save()
                 data.append({'items': product.id})
 
         return Response({'success': data})
+        
