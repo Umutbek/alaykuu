@@ -49,7 +49,7 @@ class PaymentFilter(FilterSet):
 
 
 class SaleFarmerItemFilter(FilterSet):
-    districts = filters.ModelMultipleChoiceFilter(queryset=SaleFarmerItem.objects.all())
+    districts = filters.ModelMultipleChoiceFilter(queryset=models.District.objects.all())
 
     class Meta:
         models = SaleFarmerItem
