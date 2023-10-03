@@ -68,7 +68,6 @@ class Accepted(models.Model):
     farmerComment = models.TextField('Комментарий фермера', blank=True)
     probnik = models.FloatField('Пробник', default=0)
 
-
     class Meta:
         ordering = ('-id',)
         verbose_name = ("Принятый продукт")

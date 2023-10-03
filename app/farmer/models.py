@@ -8,7 +8,7 @@ from farmer import utils
 # Create your models here.
 
 
-class   ModelCows(models.Model):
+class ModelCows(models.Model):
     class Meta:
         verbose_name = 'Корова'
         verbose_name_plural = 'Коровы'

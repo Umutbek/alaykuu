@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class OrderStatuses(models.IntegerChoices):
     New = 1, 'Новый'
     Packing = 2, 'Упаковывается'

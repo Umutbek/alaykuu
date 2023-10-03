@@ -55,7 +55,8 @@ class FarmerViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         try:
-            instance.milkCost = instance.district.milkCost
+            if instance.paymentType == 'card':
+                instance.milkCost = instance.district.milkCost + 1
             instance.save()
         except:
             pass
