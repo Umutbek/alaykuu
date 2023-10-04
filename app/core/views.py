@@ -344,7 +344,7 @@ class SyncWithOneCViewSet(APIView):
                         "Номенклатура": "bcbdff43-8504-11ed-8480-107b4492ed8b",
                         "Количество": accepted_product.amount,
                         "Измерение": 0,
-                        "Цена": accepted_product.item.cost,
+                        "Цена": accepted_product.unitCost,
                         "Скидка": 0,
                         "ОбшаяСумма": accepted_product.totalCost,
                         "ДатаОплаты": f"{formatted_current_datetime}",
