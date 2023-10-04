@@ -338,7 +338,7 @@ class SyncWithOneCViewSet(APIView):
                         {
                             "Номенклатура": f"{accepted_product.item.oneC_id}",
                             "Количество": accepted_product.amount,
-                            "Измерение": dimension,
+                            "Измерение": 0,
                             "Цена": accepted_product.item.cost,
                             "Скидка": 0,
                             "ОбшаяСумма": accepted_product.totalCost,
