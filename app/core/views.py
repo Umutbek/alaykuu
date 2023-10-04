@@ -361,15 +361,20 @@ class SyncWithOneCViewSet(APIView):
                 # accepted_product.sync_with_oneC = True
                 # accepted_product.ref = 'success'
                 # accepted_product.save()
-                try:
-                    response_data.append(oneC_request.json())
-                    ref = oneC_request.json()['Ref']
-                    accepted_product.ref = ref
-                    accepted_product.status = 1
-                    accepted_product.save()
-                except:
-                    accepted_product.status = 1
-                    accepted_product.save()
+                # try:
+                #     response_data.append(oneC_request.json())
+                #     ref = oneC_request.json()['Ref']
+                #     accepted_product.ref = ref
+                #     accepted_product.status = 1
+                #     accepted_product.save()
+                # except:
+                #     accepted_product.status = 1
+                #     accepted_product.save()
+                response_data.append(oneC_request.json())
+                ref = oneC_request.json()['Ref']
+                accepted_product.ref = ref
+                accepted_product.status = 1
+                accepted_product.save()
             else:
                 message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
                 response_data.append(message)
