@@ -349,7 +349,7 @@ class SyncWithOneCViewSet(APIView):
                         "ОбшаяСумма": accepted_product.totalCost,
                         "ДатаОплаты": f"{formatted_current_datetime}",
                         "Характеристика": "Цельное, л",
-                        "СтатусОплаты": True
+                        "СтатусОплаты": accepted_product.status == 1
                     }
                 ]
             }
