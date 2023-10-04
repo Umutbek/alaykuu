@@ -426,3 +426,16 @@ class SetFatViewSet(APIView):
                 data.append({'items': product.id})
 
         return Response({'success': data})
+
+
+class DeleteViewSet(APIView):
+    authentication_classes = []
+    permission_classes = [permissions.AllowAny]
+
+    def list(self, request, format=None):
+        products = models.Accepted.objects.exclude(ref__isnull=True)
+
+        for i in products:
+            i.ref = ''
+            i.save()
+        return Response({'status': 'ok'})
