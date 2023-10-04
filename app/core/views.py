@@ -322,10 +322,14 @@ class SyncWithOneCViewSet(APIView):
             headers = {
                 'Authorization': f'Basic {credentials}'
             }
+            if accepted_product.ref:
+                refchik = accepted_product.ref
+            else:
+                refchik = ''
 
             send_data = {
                 "Date": f"{formatted_current_datetime}",
-                "Ref": f'{accepted_product.ref}',
+                "Ref": f'{refchik}',
                 "Поставщик": "7b5ab912-d38e-11ed-997d-e0d55eb23d4f",
                 "Контрагент": "7b5ab916-d38e-11ed-997d-e0d55eb23d4f",
                 "Организация": "07db7fcf-82b0-11ed-8480-107b4492ed8b",
