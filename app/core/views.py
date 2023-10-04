@@ -327,7 +327,7 @@ class SyncWithOneCViewSet(APIView):
                 refchik = ''
 
             send_data = {
-                "Date": f"{formatted_current_datetime}",
+                "Date": f"{accepted_product.date}",
                 "Ref": f'{refchik}',
                 "Поставщик": "7b5ab912-d38e-11ed-997d-e0d55eb23d4f",
                 "Контрагент": "7b5ab916-d38e-11ed-997d-e0d55eb23d4f",
