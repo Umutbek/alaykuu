@@ -296,116 +296,77 @@ class SyncWithOneCViewSet(APIView):
         response_data = []
         for i in accepted_products_id:
             accepted_product = models.Accepted.objects.filter(pk=i['id']).first()
-            if accepted_product.ref is None:
-                if accepted_product.unit == 2:
-                    dimension = 0
-                else:
-                    dimension = 1
-
-                if accepted_product.status == 1:
-                    payment_status = True
-                else:
-                    payment_status = False
-
-                current_datetime = datetime.now()
-                accepted_date = accepted_product.date
-                formatted_current_datetime = current_datetime.strftime('%Y-%m-%dT%H:%M:%S')
-                if accepted_product.date is None or accepted_product.date == "":
-                    formatted_accepted_date = formatted_current_datetime
-                else:
-                    formatted_accepted_date = accepted_date.strftime('%Y-%m-%dT%H:%M:%S')
-
-                auth_username = 'Администратор'
-                auth_password = ''
-
-                credentials = base64.b64encode(f"{auth_username}:{auth_password}".encode('utf-8')).decode('utf-8')
-
-                headers = {
-                    'Authorization': f'Basic {credentials}'
-                }
-
-                send_data = {
-                    "Date": f"{formatted_current_datetime}",
-                    "Поставщик": "7b5ab912-d38e-11ed-997d-e0d55eb23d4f",
-                    "Контрагент": "7b5ab916-d38e-11ed-997d-e0d55eb23d4f",
-                    "Организация": "07db7fcf-82b0-11ed-8480-107b4492ed8b",
-                    "Склад": "deb552c8-8698-11ed-8481-107b4492ed8b",
-                    "Подразделение": "bf43d16c-93bc-11ed-964d-fc3497beb46e",
-                    "Менеджер": "8c6ed3fc-85d9-11ed-8481-107b4492ed8b",
-                    "СуммаДокумента": 59,
-                    "Валюта": "417",
-                    "ФормаОплаты": 0,
-                    "Комментарий": "sa",
-                    "TabularSection": [
-                        {
-                            "Номенклатура": "bcbdff43-8504-11ed-8480-107b4492ed8b",
-                            "Количество": accepted_product.amount,
-                            "Измерение": 0,
-                            "Цена": accepted_product.item.cost,
-                            "Скидка": 0,
-                            "ОбшаяСумма": accepted_product.totalCost,
-                            "ДатаОплаты": f"{formatted_current_datetime}",
-                            "Характеристика": "Цельное, л",
-                            "СтатусОплаты": True
-                        }
-                    ]
-                }
-                # send_data = {
-                #     "Date": f"{formatted_current_datetime}",
-                #     "Поставщик": f"{accepted_product.farmer.oneC_id}",
-                #     "Контрагент": f"{accepted_product.distributor.oneC_id}",
-                #     "ПодотчетноеЛицо": "a6b90ec0-0ff9-11ee-99b3-e0d55eb23d4f",
-                #     "Организации": "f9232d18-0ff4-11ee-99b3-e0d55eb23d4f",
-                #     "Валюта": 417,
-                #     "ФормаОплаты": 0,
-                #     "Комментарий": f"{accepted_product.comment}",
-                #     "TabularSection": [
-                #         {
-                #             "Номенклатура": f"{accepted_product.item.oneC_id}",
-                #             "Количество": accepted_product.amount,
-                #             "Измерение": 0,
-                #             "Цена": accepted_product.item.cost,
-                #             "Скидка": 0,
-                #             "ОбшаяСумма": accepted_product.totalCost,
-                #             "ДатаОплаты": f"{formatted_accepted_date}",
-                #             "СтатусОплаты": payment_status
-                #         }
-                #     ]
-                # }
-
-                send_data_json = json.dumps(send_data)  # Преобразование словаря send_data в JSON строку
-                send_data_json_bytes = send_data_json.encode('utf-8')  # Кодирование JSON строки в байты
-
-                send_data_json_bytes_without_bom = remove_bom(send_data_json_bytes)  # Удаление BOM символов из данных
-
-                send_data_without_bom = json.loads(
-                    send_data_json_bytes_without_bom.decode('utf-8'))  # Преобразование данных в объект Python
-
-                oneC_request = requests.post('http://84.46.242.63/alayku_cndb/hs/DataExchange/document/purchase',
-                                             json=send_data_without_bom, headers=headers)
-
-                # accepted_product.sync_with_oneC = True
-                # accepted_product.ref = 'success'
-                # accepted_product.save()
-
-                # try:
-                #     response_data.append(oneC_request.json())
-                #     ref = oneC_request.json()['Ref']
-                #     accepted_product.ref = ref
-                #     accepted_product.status = 1
-                #     accepted_product.save()
-                # except:
-                #     accepted_product.status = 1
-                #     accepted_product.save()
-
-                response_data.append(oneC_request.json())
-                ref = oneC_request.json()['Ref']
-                accepted_product.ref = ref
-                accepted_product.status = 1
-                accepted_product.save()
+            if accepted_product.unit == 2:
+                dimension = 0
             else:
-                message = {"message": f"The ref model field of the accepted product with this ID exists ({i['id']})"}
-                response_data.append(message)
+                dimension = 1
+
+            if accepted_product.status == 1:
+                payment_status = True
+            else:
+                payment_status = False
+
+            current_datetime = datetime.now()
+            accepted_date = accepted_product.date
+            formatted_current_datetime = current_datetime.strftime('%Y-%m-%dT%H:%M:%S')
+            if accepted_product.date is None or accepted_product.date == "":
+                formatted_accepted_date = formatted_current_datetime
+            else:
+                formatted_accepted_date = accepted_date.strftime('%Y-%m-%dT%H:%M:%S')
+
+            auth_username = 'Администратор'
+            auth_password = ''
+
+            credentials = base64.b64encode(f"{auth_username}:{auth_password}".encode('utf-8')).decode('utf-8')
+
+            headers = {
+                'Authorization': f'Basic {credentials}'
+            }
+
+            send_data = {
+                "Date": f"{formatted_current_datetime}",
+                "Ref": f'{accepted_product.ref}',
+                "Поставщик": "7b5ab912-d38e-11ed-997d-e0d55eb23d4f",
+                "Контрагент": "7b5ab916-d38e-11ed-997d-e0d55eb23d4f",
+                "Организация": "07db7fcf-82b0-11ed-8480-107b4492ed8b",
+                "Склад": "deb552c8-8698-11ed-8481-107b4492ed8b",
+                "Подразделение": "bf43d16c-93bc-11ed-964d-fc3497beb46e",
+                "Менеджер": "8c6ed3fc-85d9-11ed-8481-107b4492ed8b",
+                "СуммаДокумента": 59,
+                "Валюта": "417",
+                "ФормаОплаты": 0,
+                "Комментарий": "sa",
+                "TabularSection": [
+                    {
+                        "Номенклатура": "bcbdff43-8504-11ed-8480-107b4492ed8b",
+                        "Количество": accepted_product.amount,
+                        "Измерение": 0,
+                        "Цена": accepted_product.item.cost,
+                        "Скидка": 0,
+                        "ОбшаяСумма": accepted_product.totalCost,
+                        "ДатаОплаты": f"{formatted_current_datetime}",
+                        "Характеристика": "Цельное, л",
+                        "СтатусОплаты": True
+                    }
+                ]
+            }
+
+            send_data_json = json.dumps(send_data)  # Преобразование словаря send_data в JSON строку
+            send_data_json_bytes = send_data_json.encode('utf-8')  # Кодирование JSON строки в байты
+
+            send_data_json_bytes_without_bom = remove_bom(send_data_json_bytes)  # Удаление BOM символов из данных
+
+            send_data_without_bom = json.loads(
+                send_data_json_bytes_without_bom.decode('utf-8'))  # Преобразование данных в объект Python
+
+            oneC_request = requests.post('http://84.46.242.63/alayku_cndb/hs/DataExchange/document/purchase',
+                                         json=send_data_without_bom, headers=headers)
+
+            response_data.append(oneC_request.json())
+            ref = oneC_request.json()['Ref']
+            accepted_product.ref = ref
+            accepted_product.status = 1
+            accepted_product.save()
         return Response({'response': response_data})
 
 
