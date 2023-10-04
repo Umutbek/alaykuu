@@ -356,7 +356,7 @@ class SyncWithOneCViewSet(APIView):
                 send_data_without_bom = json.loads(
                     send_data_json_bytes_without_bom.decode('utf-8'))  # Преобразование данных в объект Python
 
-                oneC_request = requests.post('http://212.42.107.229/alayku/hs/exchange/document/purchase/',
+                oneC_request = requests.post('http://84.46.242.63/alayku_cndb/hs/DataExchange/document/purchase',
                                              json=send_data_without_bom, headers=headers)
                 accepted_product.sync_with_oneC = True
                 accepted_product.ref = 'success'
