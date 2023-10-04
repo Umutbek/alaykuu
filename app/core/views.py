@@ -326,6 +326,10 @@ class SyncWithOneCViewSet(APIView):
             else:
                 refchik = ''
 
+            pay_stat = False
+            if accepted_product.status == 1:
+                pay_stat = True
+
             send_data = {
                 "Date": f"{accepted_product.date}",
                 "Ref": f'{refchik}',
@@ -349,7 +353,7 @@ class SyncWithOneCViewSet(APIView):
                         "ОбшаяСумма": accepted_product.totalCost,
                         "ДатаОплаты": f"{formatted_current_datetime}",
                         "Характеристика": "Цельное, л",
-                        "СтатусОплаты": accepted_product.status == 1
+                        "СтатусОплаты": pay_stat
                     }
                 ]
             }
