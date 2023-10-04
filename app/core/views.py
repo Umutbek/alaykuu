@@ -16,7 +16,6 @@ from django_filters import FilterSet
 from datetime import datetime
 import requests
 
-
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, action
@@ -30,7 +29,7 @@ from farmer.models import SaleFarmerCategory, SaleFarmerItem
 
 class ItemViewSet(viewsets.ModelViewSet):
     """Manage item"""
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = models.Item.objects.all()
     serializer_class = serializers.ItemSerializer
 
@@ -118,7 +117,7 @@ class AcceptedViewSet(viewsets.ModelViewSet):
             if product.probnik == 0:
                 if product.fat > 0 and product.fat < 3.4:
                     minus_num = product.fat
-                    product.unitCost = product.farmer.milkCost - (5*(3.4-minus_num))
+                    product.unitCost = product.farmer.milkCost - (5 * (3.4 - minus_num))
                     # if minus_num < 3.4 and minus_num > 2.4:
                     #     product.unitCost = product.farmer.milkCost - 0.5
                     # elif minus_num <= 2.4 and minus_num > 1.4:
@@ -129,7 +128,6 @@ class AcceptedViewSet(viewsets.ModelViewSet):
                     #     product.unitCost = product.farmer.milkCost - 2
         product.totalCost = product.amount * product.unitCost
         product.save()
-
 
         # if product.fat < 3.4 and product.fat > 0 and product.probnik == 0:
         #     new_milk_cost = MilkCostConst - ((3.4 - product.fat) * 10 * 0.5)
@@ -147,13 +145,13 @@ class AcceptedViewSet(viewsets.ModelViewSet):
 
 class PaymentViewSet(viewsets.ModelViewSet):
     """Manage accepted products"""
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Payment.objects.all()
     serializer_class = serializers.PaymentSerializer
 
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_class = filters.PaymentFilter
-    search_fields = ('farmer__fullname', )
+    search_fields = ('farmer__fullname',)
 
     def get_queryset(self):
         return self.queryset.all().order_by('-id')
@@ -192,7 +190,7 @@ class NewsViewSet(viewsets.ModelViewSet):
 
 class JobsViewSet(viewsets.ModelViewSet):
     """Manage jobs"""
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = models.Job.objects.all()
     serializer_class = serializers.JobSerializer
 
@@ -202,7 +200,7 @@ class JobsViewSet(viewsets.ModelViewSet):
 
 class MessagesViewSet(viewsets.ModelViewSet):
     """Manage messages"""
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = models.Messages.objects.all()
     serializer_class = serializers.MessagesSerializer
 
@@ -212,7 +210,7 @@ class MessagesViewSet(viewsets.ModelViewSet):
 
 class VideoViewSet(viewsets.ModelViewSet):
     """Manage videos"""
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = models.Video.objects.all()
     serializer_class = serializers.VideoSerializer
 
@@ -222,7 +220,7 @@ class VideoViewSet(viewsets.ModelViewSet):
 
 class SliderViewSet(viewsets.ModelViewSet):
     """Manage slider"""
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = models.Slider.objects.all()
     serializer_class = serializers.SliderSerializer
 
@@ -232,7 +230,7 @@ class SliderViewSet(viewsets.ModelViewSet):
 
 class WebProductsViewSet(viewsets.ModelViewSet):
     """Manage slider"""
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = WebProducts.objects.all()
     serializer_class = serializers.WebProductsSerializer
 
@@ -242,7 +240,7 @@ class WebProductsViewSet(viewsets.ModelViewSet):
 
 class SaleFarmerCategoryViewSet(viewsets.ModelViewSet):
     """Manage slider"""
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = SaleFarmerCategory.objects.all()
     serializer_class = serializers.SaleFarmerCategorySerializer
 
@@ -252,7 +250,7 @@ class SaleFarmerCategoryViewSet(viewsets.ModelViewSet):
 
 class SaleFarmerItemViewSet(viewsets.ModelViewSet):
     """Manage slider"""
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = SaleFarmerItem.objects.all()
     serializer_class = serializers.SaleFarmerItemSerializer
 
@@ -272,10 +270,12 @@ class SaleFarmerItemViewSet(viewsets.ModelViewSet):
 
 import json
 
+
 def remove_bom_from_json(json_data):
     json_text = json_data.decode('utf-8-sig')  # Декодируем текст в кодировке UTF-8-sig, удаляя BOM символы
     json_object = json.loads(json_text)  # Преобразуем текст JSON в объект Python
     return json_object
+
 
 def remove_bom(data):
     bom_chars = [b'\xef\xbb\xbf', b'\xff\xfe']  # UTF-8 и UTF-16 BOM символы
@@ -324,29 +324,54 @@ class SyncWithOneCViewSet(APIView):
                     'Authorization': f'Basic {credentials}'
                 }
 
-
                 send_data = {
                     "Date": f"{formatted_current_datetime}",
-                    "Поставщик": f"{accepted_product.farmer.oneC_id}",
-                    "Контрагент": f"{accepted_product.distributor.oneC_id}",
-                    "ПодотчетноеЛицо": "a6b90ec0-0ff9-11ee-99b3-e0d55eb23d4f",
-                    "Организации": "f9232d18-0ff4-11ee-99b3-e0d55eb23d4f",
-                    "Валюта": 417,
+                    "Поставщик": "7b5ab912-d38e-11ed-997d-e0d55eb23d4f",
+                    "Контрагент": "7b5ab916-d38e-11ed-997d-e0d55eb23d4f",
+                    "Организация": "07db7fcf-82b0-11ed-8480-107b4492ed8b",
+                    "Склад": "deb552c8-8698-11ed-8481-107b4492ed8b",
+                    "Подразделение": "bf43d16c-93bc-11ed-964d-fc3497beb46e",
+                    "Менеджер": "8c6ed3fc-85d9-11ed-8481-107b4492ed8b",
+                    "СуммаДокумента": 59,
+                    "Валюта": "417",
                     "ФормаОплаты": 0,
-                    "Комментарий": f"{accepted_product.comment}",
+                    "Комментарий": "sa",
                     "TabularSection": [
                         {
-                            "Номенклатура": f"{accepted_product.item.oneC_id}",
+                            "Номенклатура": "bcbdff43-8504-11ed-8480-107b4492ed8b",
                             "Количество": accepted_product.amount,
                             "Измерение": 0,
                             "Цена": accepted_product.item.cost,
                             "Скидка": 0,
                             "ОбшаяСумма": accepted_product.totalCost,
-                            "ДатаОплаты": f"{formatted_accepted_date}",
-                            "СтатусОплаты": payment_status
+                            "ДатаОплаты": f"{formatted_current_datetime}",
+                            "Характеристика": "Цельное, л",
+                            "СтатусОплаты": True
                         }
                     ]
                 }
+                # send_data = {
+                #     "Date": f"{formatted_current_datetime}",
+                #     "Поставщик": f"{accepted_product.farmer.oneC_id}",
+                #     "Контрагент": f"{accepted_product.distributor.oneC_id}",
+                #     "ПодотчетноеЛицо": "a6b90ec0-0ff9-11ee-99b3-e0d55eb23d4f",
+                #     "Организации": "f9232d18-0ff4-11ee-99b3-e0d55eb23d4f",
+                #     "Валюта": 417,
+                #     "ФормаОплаты": 0,
+                #     "Комментарий": f"{accepted_product.comment}",
+                #     "TabularSection": [
+                #         {
+                #             "Номенклатура": f"{accepted_product.item.oneC_id}",
+                #             "Количество": accepted_product.amount,
+                #             "Измерение": 0,
+                #             "Цена": accepted_product.item.cost,
+                #             "Скидка": 0,
+                #             "ОбшаяСумма": accepted_product.totalCost,
+                #             "ДатаОплаты": f"{formatted_accepted_date}",
+                #             "СтатусОплаты": payment_status
+                #         }
+                #     ]
+                # }
 
                 send_data_json = json.dumps(send_data)  # Преобразование словаря send_data в JSON строку
                 send_data_json_bytes = send_data_json.encode('utf-8')  # Кодирование JSON строки в байты
@@ -358,9 +383,11 @@ class SyncWithOneCViewSet(APIView):
 
                 oneC_request = requests.post('http://84.46.242.63/alayku_cndb/hs/DataExchange/document/purchase',
                                              json=send_data_without_bom, headers=headers)
+
                 # accepted_product.sync_with_oneC = True
                 # accepted_product.ref = 'success'
                 # accepted_product.save()
+
                 # try:
                 #     response_data.append(oneC_request.json())
                 #     ref = oneC_request.json()['Ref']
@@ -370,6 +397,7 @@ class SyncWithOneCViewSet(APIView):
                 # except:
                 #     accepted_product.status = 1
                 #     accepted_product.save()
+
                 response_data.append(oneC_request.json())
                 ref = oneC_request.json()['Ref']
                 accepted_product.ref = ref
@@ -382,14 +410,14 @@ class SyncWithOneCViewSet(APIView):
 
 
 class ImagesViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = models.Images.objects.all()
     serializer_class = serializers.ImagesSerializer
     pagination_class = None
 
 
 class SetFatViewSet(APIView):
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = [JWTAuthentication]
 
     @swagger_auto_schema(request_body=SetFatSerializer())
@@ -406,7 +434,7 @@ class SetFatViewSet(APIView):
                     product.unitCost = product.farmer.milkCost
                 elif product.probnik > 0 and product.probnik < 3.4:
                     minus_num = product.probnik
-                    product.unitCost = product.farmer.milkCost - (5*(3.4-minus_num))
+                    product.unitCost = product.farmer.milkCost - (5 * (3.4 - minus_num))
                     # if minus_num < 3.4 and minus_num > 2.4:
                     #     product.unitCost = product.farmer.milkCost - 0.5
                     # elif minus_num <= 2.4 and minus_num > 1.4:
@@ -433,4 +461,3 @@ class SetFatViewSet(APIView):
                 data.append({'items': product.id})
 
         return Response({'success': data})
-        
