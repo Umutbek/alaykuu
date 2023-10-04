@@ -358,9 +358,9 @@ class SyncWithOneCViewSet(APIView):
 
                 oneC_request = requests.post('http://84.46.242.63/alayku_cndb/hs/DataExchange/document/purchase',
                                              json=send_data_without_bom, headers=headers)
-                accepted_product.sync_with_oneC = True
-                accepted_product.ref = 'success'
-                accepted_product.save()
+                # accepted_product.sync_with_oneC = True
+                # accepted_product.ref = 'success'
+                # accepted_product.save()
                 try:
                     response_data.append(oneC_request.json())
                     ref = oneC_request.json()['Ref']
