@@ -432,7 +432,7 @@ class DeleteViewSet(APIView):
     authentication_classes = []
     permission_classes = [permissions.AllowAny]
 
-    def list(self, request, format=None):
+    def post(self, request, format=None):
         products = models.Accepted.objects.exclude(ref__isnull=True)
 
         for i in products:
