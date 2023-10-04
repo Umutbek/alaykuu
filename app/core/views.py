@@ -21,7 +21,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, action
 import requests
 
-from core.serializers import SetFatSerializer
+from core.serializers import SetFatSerializer, ChangeCostSerializer
 from farmer.utils import MilkCostConst
 from website.models import WebProducts
 from farmer.models import SaleFarmerCategory, SaleFarmerItem
@@ -73,7 +73,6 @@ class AcceptedViewSet(viewsets.ModelViewSet):
         updated_data = self.perform_update(serializer)
         product = self.get_object()
         new_milk_cost = 0
-
         # if product.probnik > 0 and product.probnik < 3.4:
         #     minus_num = product.probnik
         #     if minus_num < 3.4 and minus_num > 2.4:
@@ -428,14 +427,16 @@ class SetFatViewSet(APIView):
         return Response({'success': data})
 
 
-class DeleteViewSet(APIView):
+class ChangeCostViewSet(APIView):
     authentication_classes = []
     permission_classes = [permissions.AllowAny]
 
+    @swagger_auto_schema(request_body=ChangeCostSerializer())
     def post(self, request, format=None):
-        products = models.Accepted.objects.exclude(ref__isnull=True)
-
-        for i in products:
-            i.ref = ''
-            i.save()
+        serializer = serializers.ChangeCostSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        accepted = models.Accepted.objects.filter(pk=serializer.validated_data['id']).first()
+        accepted.unitCost = serializer.validated_data['unitCost']
+        accepted.totalCost = serializer.validated_data['totalCost']
+        accepted.save()
         return Response({'status': 'ok'})

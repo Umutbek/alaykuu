@@ -276,3 +276,12 @@ class SetFatSerializer(serializers.Serializer):
 
     class Meta:
         fields = ('items', 'fat')
+
+
+class ChangeCostSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    unitCost = serializers.FloatField()
+    totalCost = serializers.FloatField()
+
+    class Meta:
+        fields = ('id', 'unitCost', 'totalCost')

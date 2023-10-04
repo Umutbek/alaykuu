@@ -25,5 +25,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('synchronization_with_oneC/', views.SyncWithOneCViewSet.as_view()),
     path('setFat/', views.SetFatViewSet.as_view()),
-    path('delete_ref/', views.DeleteViewSet.as_view())
+    path('change_cost/', views.ChangeCostViewSet.as_view())
 ]
