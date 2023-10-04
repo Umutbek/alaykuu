@@ -331,7 +331,7 @@ class SyncWithOneCViewSet(APIView):
                 pay_stat = True
 
             send_data = {
-                "Date": f"{accepted_product.date}",
+                "Date": f"{formatted_current_datetime}",
                 "Ref": f'{refchik}',
                 "Поставщик": "7b5ab912-d38e-11ed-997d-e0d55eb23d4f",
                 "Контрагент": "7b5ab916-d38e-11ed-997d-e0d55eb23d4f",
