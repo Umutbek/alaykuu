@@ -50,12 +50,13 @@ class FarmerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Farmer
         fields = ('id', 'fullname', 'login', 'phone', 'avatar', 'passport_front', 'passport_back', 'cows',
-                  'passport_text', 'city', 'district', 'address', 'comment', 'farmer_type', 'active', 'rating', 'longitude', 'latitude',
+                  'passport_text', 'city', 'district', 'address', 'comment', 'farmer_type', 'active', 'rating',
+                  'longitude', 'latitude', 'dateCreated',
                   'verified', 'payment_left', 'type', 'password', 'oneC_id', 'milkCost', 'paymentType', 'cardNumber'
                   )
 
         extra_kwargs = {'password': {'write_only': True}, }
-        read_only_fields = ('id', 'milkCost')
+        read_only_fields = ('id', 'milkCost', 'dateCreated')
 
     def create(self, validated_data):
         """Create user with encrypted password and return it"""

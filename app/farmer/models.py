@@ -31,6 +31,7 @@ class Farmer(User):
     paymentType = models.CharField('Тип оплаты', choices=utils.PAYMENT_TYPE, default=utils.CARD, max_length=10)
     cardNumber = models.CharField('Номер карты', max_length=200, blank=True)
     cows = models.ManyToManyField(ModelCows, blank=True, verbose_name='Коровы')
+    dateCreated = models.DateTimeField('Дата регистрации', auto_now_add=True, null=True, blank=True)
 
     # def save(self):
     #     if self.type == None:
