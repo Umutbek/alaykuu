@@ -12,7 +12,7 @@ class OrderFilter(FilterSet):
     status = filters.CharFilter('status')
     start_date = filters.DateFilter(field_name="date", lookup_expr='gte')
     end_date = filters.DateFilter(field_name="date", lookup_expr='lte')
-    payment_status = filters.CharFilter('payment_status')
+    payment_status = filters.BooleanFilter('payment_status')
 
     class Meta:
         models = models.FarmerOrders
