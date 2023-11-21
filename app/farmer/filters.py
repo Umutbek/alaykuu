@@ -5,11 +5,15 @@ from farmer import models
 from django.db.models import Q
 
 
+class CharFilterOR(filters.BaseInFilter, filters.CharFilter):
+    pass
+
+
 class OrderFilter(FilterSet):
     """Filter for an order"""
     farmer = filters.CharFilter('farmer')
     distributer = filters.CharFilter('distributer')
-    status = filters.CharFilter('status')
+    status = CharFilterOR(field_name='status', lookup_expr='in')
     start_date = filters.DateFilter(field_name="date", lookup_expr='gte')
     end_date = filters.DateFilter(field_name="date", lookup_expr='lte')
     payment_status = filters.BooleanFilter('payment_status')
