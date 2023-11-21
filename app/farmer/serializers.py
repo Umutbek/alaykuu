@@ -34,7 +34,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.FarmerOrders
         fields = (
-            'id', 'items', 'farmer', 'distributer', 'date', 'comment',
+            'id', 'items', 'farmer', 'distributer', 'date', 'comment', 'payment_status',
             'status', 'totalCost'
         )
 
@@ -109,7 +109,7 @@ class GetOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.FarmerOrders
         fields = (
-            'id', 'items', 'farmer', 'distributer', 'date', 'comment',
+            'id', 'items', 'farmer', 'distributer', 'date', 'comment', 'payment_status',
             'status', 'totalCost'
         )
 

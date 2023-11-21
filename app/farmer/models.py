@@ -102,6 +102,7 @@ class FarmerOrders(models.Model):
     status = FSMIntegerField(choices=utils.OrderStatuses.choices, default=utils.OrderStatuses.New, verbose_name="Статус")
     totalCost = models.IntegerField(default=0, verbose_name="Общая сумма")
     items = models.ManyToManyField(CartItems, blank=True, verbose_name='Товары')
+    payment_status = models.BooleanField(verbose_name='Статус оплаты', default=False)
 
     # @property
     # def items(self):
